@@ -1,5 +1,4 @@
-<img alt="fixout_logo" src="https://asilvaguilherme4.files.wordpress.com/2023/08/fixout-1.png">
-# FixOut
+<img alt="fixout_logo" src="https://asilvaguilherme4.files.wordpress.com/2023/08/fixout-1.png?w=100">
 
 <b>Algorithmic inspection for trustworthy ML models</b>
 
