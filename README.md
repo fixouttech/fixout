@@ -42,3 +42,5 @@ Then run the inspection
  fx.inspect([FairMetricEnum.DP, FairMetricEnum.EO, FairMetricEnum.PE])
  fx.explain()
 ```
+
+Finally, access the generated report at <a href="http://localhost:9090" target="_blank" rel="noopener">http://localhost:9090</a> ;)
