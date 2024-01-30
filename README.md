@@ -1,4 +1,4 @@
-<img alt="fixout_logo" src="https://asilvaguilherme4.files.wordpress.com/2023/08/fixout-1.png?w=128">
+<img alt="fixout_logo" src="https://asilvaguilherme4.files.wordpress.com/2023/08/fixout-1.png?w=128" href="https://fixout.fr/blog/">
 
 <b>Algorithmic inspection for trustworthy ML models</b>
 
