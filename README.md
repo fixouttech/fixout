@@ -1,12 +1,8 @@
-<img alt="fixout_logo" src="https://asilvaguilherme4.files.wordpress.com/2023/08/fixout-1.png?w=100">
+<img alt="fixout_logo" src="https://asilvaguilherme4.files.wordpress.com/2023/08/fixout-1.png?w=128">
 
 <b>Algorithmic inspection for trustworthy ML models</b>
 
-<div align="center">
-
-  [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://github.com/fixouttech/fixout/blob/main/LICENSE)
-
-</div>
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://github.com/fixouttech/fixout/blob/main/LICENSE)
 
 <ul>
   <li><a href="" target="_blank" rel="noopener">Website</a></li>
