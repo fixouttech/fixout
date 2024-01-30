@@ -1,6 +1,7 @@
-# Fixout
+<img alt="fixout_logo" src="https://asilvaguilherme4.files.wordpress.com/2023/08/fixout-1.png">
+# FixOut
 
-<b>The algorithmic inspection for trustworthy ML models</b>
+<b>Algorithmic inspection for trustworthy ML models</b>
 
 <div align="center">
 
