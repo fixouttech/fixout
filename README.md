@@ -5,9 +5,9 @@
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://github.com/fixouttech/fixout/blob/main/LICENSE)
 
 <ul>
-  <li><a href="" target="_blank" rel="noopener">Website</a></li>
-  <li><a href="" target="_blank" rel="noopener">Documentation</a></li>
-  <li><a href="" target="_blank" rel="noopener">Blog</a></li>
+  <li><a href="https://fixout.fr" target="_blank" rel="noopener">Website</a></li>
+  <li><a href="https://fixouttech.github.io/fixout_api_docs" target="_blank" rel="noopener">Documentation</a></li>
+  <li><a href="https://fixout.fr/blog/" target="_blank" rel="noopener">Blog</a></li>
 </ul>
 
 # Getting started
