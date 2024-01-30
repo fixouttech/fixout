@@ -1,6 +1,6 @@
-# fixout
+# Fixout
 
-The algorithmic inspection for trustworthy ML models
+<b>The algorithmic inspection for trustworthy ML models</b>
 
 <div align="center">
 
@@ -8,12 +8,16 @@ The algorithmic inspection for trustworthy ML models
 
 </div>
 
-
-Documentation
-Website
-Blog
+<ul>
+  <li><a href="" target="_blank" rel="noopener">Website</a></li>
+  <li><a href="" target="_blank" rel="noopener">Documentation</a></li>
+  <li><a href="" target="_blank" rel="noopener">Blog</a></li>
+</ul>
 
 # Getting started
+
+How to start analysing a simple model:
+
 
 ```python
  from connector import FixOutConnector, FixOutArtifact
