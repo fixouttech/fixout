@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:300,600|Roboto:100,300,400,500,700|Roboto+Mono:300&display=swap');
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: white;
+}
+
+header {
+    margin: 64px;
+}
+
+header h1 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 64px;
+}
+
+h2 {
+    font-weight: 300; 
+}
+
+.instruction {
+    position: relative;
+    width: max-content;
+}
+
+.big-number {
+    width: 48px;
+    float: left;
+    padding: 16px;
+    text-align: center;
+    font-weight: 300;
+    font-size: 48px;
+}
+
+.selection {
+    float: left;
+    margin-bottom: -256px;
+}
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 400px;
+    background-color: #f8f8f8;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15);
+    color: #555;
+    text-align: left;
+    padding: 8px; 
+    border-radius: 6px;
+    cursor: default;
+
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -210px;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltiptext a {
+    color: #679aec;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.tooltiptext a:hover {
+    color: #111;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #f8f8f8 transparent transparent transparent;
+}
+
+.tooltip:hover {
+    cursor: pointer;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container
+.tooltip:focus .tooltiptext,
+.tooltip:active .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+} */
+
+.explain {
+    width: 96px;
+    margin: 48px;
+    padding: 16px;
+    border: none;
+    text-align: center;
+    border-radius: 2px;
+    background: #eee;
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.explain:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    background: #578adc;
+    color: white;
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.2);
+}
+
+.result-column {
+    margin: 64px;
+}
+
+.result-column-title{
+    margin-top: 16px;
+    margin-left: 32px;
+}
+
+.explanation-table {
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin: 32px;
+}
+
+.explanation-table tr {
+    transition: 0.15s;
+}
+
+.explanation-table th,
+.explanation-table td {
+    padding: 8px;
+}
+
+.explanation-table th {
+    font-weight: 500;
+    background: #eee;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.explanation-table .column1 {
+    border-right: #e2e2e2 1px dashed;
+}
+
+.explanation-table .column2 {
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.explanation-table .sensible {
+    font-weight: 500;
+    background: #fafafa;
+}
+
+.explanation-table .sensible:hover {
+    background: #679aec;
+    color: white;
+    cursor: pointer;
+}
+
+.metrics-table .column1 {
+    font-weight: 500;
+}
+
+.explanation-table:not(.metrics-table) tr:not(.sensible):not(:first-child):hover {
+    background: #eee;
+}
+
+#more-info {
+    background: #eee;
+    padding: 5px 10px;
+    border-radius: 24px;
+    color: #777;
+    margin-left: 8px;
+}
+
+#metrics-switch-display {
+    margin: 12px;
+}
+
+#metrics-switch-display:hover {
+    cursor: pointer;
+}
+
+#arrow {
+    float: right;
+    transition: 0.3s;
+}
+
+#metrics-container {
+    margin: 16px;
+    padding: 12px;
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
+    width: 720px;
+    transition: 0.3s;
+}
+
+#metrics {
+    padding-right: 24px;
+}
+
+#metrics ul {
+    color: #444;
+    text-align: left;
+    line-height: 2.5;
+}
+
+.footnotes {
+    font-size: 12px;
+    color: #777;
+    margin-top: 64px;
+}

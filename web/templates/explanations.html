@@ -1,0 +1,140 @@
+<br>
+
+{% if postsOriginal|length > 0 %}
+<div style="display: flex; width: max-content;">
+    <div>
+        <h4 class="result-column-title">Original</h4>
+        
+        <table class="explanation-table">
+            <thead>
+            <tr>
+                <th style="border-radius: 5px 0 0 0">Feature</th>
+                <th style="border-radius: 0 5px 0 0">Importance</th>
+            </tr>
+            </thead>
+            {% for post in postsOriginal %}
+            {% if post[4] == "True" %} <tr style="background-color:rgb(205, 50, 63);color:white;" onclick="show_{{ post.1 }}()"> {% else %} <tr> {% endif %}
+                    <td class="column1"><a title="" >{{ post.1 }}</a></td>
+                    <td class="column2" style="text-align: right"><script>document.write(parseFloat({{ post.2 }}.toFixed(4)))</script></td>
+                </tr>
+                {% endfor %}
+            </table>
+
+    </div>
+        
+    <div>
+        <h4 class="result-column-title">FixOut</h4>
+            
+            <table class="explanation-table">
+                <thead>
+                <tr>
+                    <th style="border-radius: 5px 0 0 0">Feature</th>
+                    <th style="border-radius: 0 5px 0 0">Importance</th>
+                </tr>
+                </thead>
+            {% for post in postsEnsemble %}
+                {% if post[4] == "True" %} <tr style="background-color:yellowgreen;color:white;" onclick="show_{{ post.1 }}();"> {% else %} <tr> {% endif %}
+                <td class="column1"><a title="" >{{ post.1 }}</a></td>
+                <td class="column2" style="text-align: right"><script>document.write(parseFloat({{ post.2 }}.toFixed(4)))</script></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</div>
+
+{% else %}
+<div class="alert alert-warning" role="alert">
+    <h4 class="alert-heading"> ⚠ Explanations not available</h4>
+    <p>Impossible to generate explanations as the model has not been provided.</p>
+    <hr>
+    <p class="mb-0">You must provide a model (or an access to it) to obtain any explanation.</p>
+  </div>
+{% endif %}
+
+
+<br>
+
+<div class="container">
+    <div id="bargraph" style="width: 500px;">
+    </div>
+</div>  
+
+{% for name_sensible_f, graphJSON in plot %}
+    <script>
+        function show_fair_full_{{ name_sensible_f }}() {
+                var graphs = {{graphJSON | safe}};
+
+                layout = {
+                    barmode: "group",
+                    title: "Fairness bar plot <br> for <b>{{ name_sensible_f }}</b>"
+                };
+
+                Plotly.plot('bargraph',graphs,layout);
+        }
+    </script>
+{% endfor %}
+
+<div class="container">
+    <ul class="nav nav-pills mb-3" id="pills_fairFull-tab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="pills_fairFull-home-tab" data-toggle="pill" href="#pills_fairFull-home" role="tab" aria-controls="pills-home" aria-selected="true">ℹ️</a>
+        </li>
+      
+        {% for sensitive_f in sensitive_features %}
+          <li class="nav-item">
+            <a class="nav-link" id="pills_fairFull-{{ sensitive_f.1 }}-tab" data-toggle="pill" href="#pills_fairFull-{{ sensitive_f.1 }}" role="tab" aria-controls="pills_fairFull-{{ sensitive_f.1 }}" aria-selected="false">{{ sensitive_f.1 }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+      
+        <div class="tab-content" id="pills-tabContent_fairFull">
+          <div class="tab-pane fade show active" id="pills-home_fairFull" role="tabpanel" aria-labelledby="pills-home-tab">
+            <div>
+              <p class="card-subtitle mb-2 text-muted">Please select a sensitive feature.</p>
+            </div>
+          </div>
+          
+          {% for sensitive_f in sensitive_features %}
+      
+          <div class="tab-pane fade" id="pills_fairFull-{{ sensitive_f.1 }}" role="tabpanel" aria-labelledby="pills_fairFull-{{ sensitive_f.1 }}-tab">
+
+            {% for sensitive_f_name, metric_name, alert_flag, graphJSON in full_fairness_plots %}
+
+            
+            {% if sensitive_f_name == sensitive_f.1 %} 
+            
+            {% if alert_flag %}
+            <div class="alert alert-danger" role="alert">
+                Warning: absolute disparities >= 0.25
+              </div>
+            {% endif %}
+            
+            <div id="fairness_full_{{ sensitive_f_name }}_{{ metric_name.0 }}">
+                  
+                  <script>
+      
+                    var graphs = {{graphJSON | safe}};
+                    
+                    layout = {
+                        barmode: "group",
+                        animation_frame : "x", 
+                        animation_group : "x",
+                        title: "Fairness metric: {{ metric_name.0 }}</b>"
+                    };
+                    
+                    Plotly.plot('fairness_full_{{ sensitive_f_name }}_{{ metric_name.0 }}',graphs,layout);
+                    </script>
+                </div>
+              {% endif %}
+            {% endfor %}
+              
+          </div>
+          
+          {% endfor %}
+          
+        </div>
+      
+
+
+</div>
