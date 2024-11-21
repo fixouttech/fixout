@@ -1,0 +1,109 @@
+<br>
+
+<div class="container">
+  <h5> Overview</h5>
+
+  <div style="display: table;">
+    <div style="display: table-row;">
+
+      {% block datahistograms %} {% endblock%}
+
+    </div>
+  </div>
+</div>
+
+<div class="alert alert-warning" role="alert"> <span class="octicon octicon-question"></span> Not sure which one is sensitive? Try out the <b>detector of disparity prone features</b> <span class="octicon octicon-arrow-right"></span> </div>
+
+
+<div class="container">
+  <div class="d-flex flex-nowrap">
+      <h5 class="p-2"> 
+        Correlation    
+      </h5>
+      <nav>
+        <div class="nav nav-pills" id="pills-tab" role="tablist">
+          <a class="nav-item nav-link btn-light active" id="nav-pearson-tab" data-toggle="pill" href="#nav-pearson" type="button" role="tab" aria-controls="nav-pearson" aria-selected="true">Pearson</a>
+          <a class="nav-item nav-link btn-light" id="nav-spearman-tab" data-toggle="pill" href="#nav-spearman" type="button" role="tab" aria-controls="nav-spearman" aria-selected="false">Spearman</a>
+          </div>
+      </nav>
+  </div>
+  
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-pearson" role="tabpanel" aria-labelledby="nav-pearson-tab">
+        
+      <div class="d-flex flex-nowrap">
+        <div class="p-2">
+          {% block pearson_corr_diagram %} {% endblock%} 
+        </div>
+    
+        <div class="p-2">
+    
+          <h5> Non-sensitive correlated to sensitive </h5>
+          <br>
+    
+          <div id="accordion">
+            
+            {% block pearson_nonsensf_sensf %} {% endblock%} 
+            
+          </div>
+        </div>
+    
+      </div>
+
+
+    </div>
+    
+    <div class="tab-pane fade" id="nav-spearman" role="tabpanel" aria-labelledby="nav-spearman-tab">
+        
+      <div class="d-flex flex-nowrap">
+        <div class="p-2">
+          {% block spearman_corr_diagram %} {% endblock%} 
+        </div>
+    
+        <div class="p-2">
+    
+          <h5> Non-sensitive correlated to sensitive </h5>
+          <br>
+    
+          <div id="accordion">
+            
+            {% block spearman_nonsensf_sensf %} {% endblock%} 
+            
+          </div>
+        </div>
+    
+      </div>
+
+    </div>
+</div>
+
+  
+</div>
+
+
+<br>
+<p>
+    <h5>Visualisation per sensitive feature</h5>
+</p>
+
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="pills-home_data-tab" data-toggle="pill" href="#pills-home_data" role="tab" aria-controls="pills-home_data" aria-selected="true">ℹ️</a>
+    </li>
+    
+    {% block features_choice %} {% endblock%} 
+  
+    </ul>
+
+    <div class="tab-content" id="pills-tabContent">
+      <div class="tab-pane fade show active" id="pills-home_data" role="tabpanel" aria-labelledby="pills-home_data-tab">
+        
+          <div>
+            <p class="card-subtitle mb-2 text-muted">Please select a sensitive feature.</p>
+          </div>
+
+      </div>
+      
+      {% block visualisation %} {% endblock%} 
+      
+  </div>

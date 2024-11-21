@@ -1,0 +1,49 @@
+
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">ℹ️</a>
+  </li>
+
+  {% for sensitive_f in sensitive_features %}
+    <li class="nav-item">
+      <a class="nav-link" id="pills-{{ sensitive_f.1 }}-tab" data-toggle="pill" href="#pills-{{ sensitive_f.1 }}" role="tab" aria-controls="pills-{{ sensitive_f.1 }}" aria-selected="false">{{ sensitive_f.1 }}</a>
+    </li>
+  {% endfor %}
+</ul>
+
+  <div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+      <div>
+        <p class="card-subtitle mb-2 text-muted">Please select a sensitive feature.</p>
+      </div>
+    </div>
+    
+    {% for sensitive_f in sensitive_features %}
+
+    <div class="tab-pane fade" id="pills-{{ sensitive_f.1 }}" role="tabpanel" aria-labelledby="pills-{{ sensitive_f.1 }}-tab">
+        
+      {% for sensitive_f_name, metric_name, graphJSON in temporal_plot %}
+        {% if sensitive_f_name == sensitive_f.1 %} 
+          <div id="temporal_graph_{{ sensitive_f_name }}_{{ metric_name.0 }}">
+            <script>
+
+              var graphs = {{graphJSON | safe}};
+              
+              layout = {
+                  barmode: "group",
+                  animation_frame : "x", 
+                  animation_group : "x",
+                  title: "Fairness metric: {{ metric_name.0 }}</b>"
+              };
+              
+              Plotly.plot('temporal_graph_{{ sensitive_f_name }}_{{ metric_name.0 }}',graphs,layout);
+              </script>
+          </div>
+        {% endif %}
+      {% endfor %}
+        
+    </div>
+    
+    {% endfor %}
+    
+  </div>
