@@ -40,6 +40,6 @@ fixout.run(fxa)
 
 Finally, you can access the generated dashboard at <a href="http://localhost:5000" target="_blank" rel="noopener">http://localhost:5000</a> ;)
 
-You should be able to see an interface similar the following 
+You should be able to see an interface similar to the following 
 
-![AntakIA demo](/img/interface_data.PNG)
+![FixOut interface](/img/interface_data.PNG)
