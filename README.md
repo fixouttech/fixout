@@ -2,7 +2,7 @@
 
 <b>Algorithmic inspection for trustworthy ML models</b>
 
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://github.com/fixouttech/fixout/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
 <ul>
   <li><a href="https://fixout.fr" target="_blank" rel="noopener">Website</a></li>
@@ -16,7 +16,8 @@ How to start analysing a simple model:
 
 
 ```python
-from connector import FixOutConnector, FixOutArtifact
+from artifact import FixOutArtifact
+from helper import FixOutHelper
 
 fixout = FixOutHelper("Credit Risk Assessment") 
 
@@ -25,25 +26,19 @@ sensitive_features = [(19,0,"foreignworker"),
                       (8,2,"statussex")] 
 
 fxa = FixOutArtifact(model=model,
-                         X_train=X_train.tolist(), 
-                         y_train=y_train,
-                         X_test=X_test.tolist(),
-                         y_test=y_test,
-                         features_name=features_name,
-                         sensitive_features=sensitive_features)
-
+                     data=[(X_test,y_test)],
+                     features_name=features_name,
+                     sensitive_features=sensitive_features,
+                     dictionary=dic)
 
 ```
 
 Then run the inspection
 ```python
-fx.load(fxa)
+fixout.run(fxa) 
 ```
 
-Finally, ask for a report.
-```python
-fx.disconnect(sendMail=True)
-```
+Finally, you can access the generated dashboard at <a href="http://localhost:5000" target="_blank" rel="noopener">http://localhost:5000</a> ;)
 
+You should be able to see the following interface
 
-Access the generated report at <a href="http://localhost:5000" target="_blank" rel="noopener">http://localhost:5000</a> ;)
