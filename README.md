@@ -12,7 +12,7 @@
 
 # Getting started
 
-How to start analysing a simple model:
+How to start analysing a simple model (let's say you have trained a binary classifier on the [German Credit Data](https://archive.ics.uci.edu/dataset/144/statlog+german+credit+data)):
 
 
 ```python
