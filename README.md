@@ -21,10 +21,12 @@ from helper import FixOutHelper
 
 fixout = FixOutHelper("Credit Risk Assessment") 
 
+# Indicate the sensitive features
 sensitive_features = [(19,0,"foreignworker"), 
                       (18,1,"telephone"), 
                       (8,2,"statussex")] 
 
+# Create a FixOut Artifact with your model and data
 fxa = FixOutArtifact(model=model,
                      data=[(X_test,y_test)],
                      features_name=features_name,
