@@ -1,0 +1,135 @@
+
+{% if debug %}
+<head>
+{% include 'utils-web/imports.html' %}
+</head>
+{% endif %}
+
+<div class="d-flex flex-nowrap">
+    <div class="w-50 p-3">
+
+        
+    <div>
+        <p><b class="text-primary">Reverse engineering</b> 
+        <a class="popoverData" class="btn" style="margin:0px;"
+        href="#" data-content="Models trained to predict sensitive features" rel="popover" data-placement="right" data-trigger="hover"><span class="octicon octicon-question"></span> </a>
+        </p>
+        
+    </div>
+            <ul class="nav nav-pills mb-3" id="{{ index_data }}_pills_reversed-tab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="{{ index_data }}_pills_reversed-home-tab" data-toggle="pill" href="#{{ index_data }}_pills_reversed-home" role="tab" aria-controls="{{ index_data }}_pills_reversed-home" aria-selected="true"><span class="octicon octicon-info"></span></a>
+                  
+                </li>
+              
+                {% for sensitive_f in sensitive_features %}
+                  <li class="nav-item">
+                    <a class="nav-link" id="{{ index_data }}_pills_reversed-{{ sensitive_f }}-tab" data-toggle="pill" href="#{{ index_data }}_pills_reversed-{{ sensitive_f }}" role="tab" aria-controls="{{ index_data }}_pills_reversed-{{ sensitive_f }}" aria-selected="false">{{ sensitive_f }}</a>
+                  </li>
+                {% endfor %}
+            </ul>
+              
+            <div class="tab-content" id="{{ index_data }}_pills-tabContent_reversed">
+              <div class="tab-pane fade show active" id="{{ index_data }}_pills_reversed-home" role="tabpanel" aria-labelledby="{{ index_data }}_pills-home-tab">
+                  <div class="card-group">
+                    <div>
+                      <p class="card-subtitle mb-2 text-muted">Please select a sensitive feature.</p>
+                    </div>
+                  </div>
+                </div>
+                
+              <!-- For each sensite feature -->
+        
+              {% for sensitive_f in sensitive_features %}
+                
+                <div class="tab-pane fade" id="{{ index_data }}_pills_reversed-{{ sensitive_f }}" role="tabpanel" aria-labelledby="{{ index_data }}_pills_reversed-{{ sensitive_f }}-tab">
+                  
+                  <!-- Standard metrics -->
+        
+                  <div class="card-body">
+                        
+                    {% for sensitive_f_name, graphJSON in rmodels_perf_plors %}
+                      
+                      <div class="d-flex flex-wrap">
+                      
+                        {% if sensitive_f_name == sensitive_f %}
+                    
+                            <div class="card border-0">
+                                <div id="{{ index_data }}_pp_{{ sensitive_f_name }}" style="margin-top: -5px">
+                                                        
+                                <script>
+                                    var graphs = {{graphJSON | safe}};
+                                    
+                                    layout = {
+                                        barmode: "group",
+                                        animation_frame : "x", 
+                                        animation_group : "x",
+                                
+                                        width: 390,
+                                        height: 250,
+                                        margin : dict = {t:10, l:20, r:20, b:50},
+                                        yaxis : dict = {range:[0, 1.05]}
+                                    };
+
+                                    
+                                    Plotly.plot('{{ index_data }}_pp_{{ sensitive_f_name }}', graphs, layout, config = {'displayModeBar': false});
+                                    </script>
+                                </div>
+                            </div>
+                                            
+                        {% endif %}
+                      
+                      </div>
+        
+                    {% endfor %}
+        
+                  </div>
+        
+        
+                </div>
+                
+              {% endfor %}
+                
+              
+        
+            </div>
+
+
+    </div>
+
+    <div class="w-50 p-3">
+        
+        <p class="text-primary"><b>Discriminatory models</b></p>
+        <div>
+            <p class="text-secondary"><span class="octicon octicon-info"> </span> These models are trained on sensitive features only</p>
+            <br>
+        </div>
+
+        {% for graphJSON in unfairmodel_perf_plots %}
+            <div id="{{ index_data }}_unfair_model" >
+                                    
+            <script>
+                var graphs = {{graphJSON | safe}};
+                
+                layout = {
+                    barmode: "group",
+                    animation_frame : "x", 
+                    animation_group : "x",
+                    
+                    width: 390,
+                    height: 250,
+                    margin : dict = {t:20, l:20, r:20, b:40},
+                    yaxis : dict = {range:[0, 1.05]}
+                };
+                
+                Plotly.plot('{{ index_data }}_unfair_model', graphs, layout, config = {'displayModeBar': false});
+                </script>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% if debug %}
+{% include 'utils-web/scripts.html' %}
+{% endif %}

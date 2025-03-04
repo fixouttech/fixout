@@ -101,8 +101,26 @@ def predictive_equality(cm0,cm1):
     metric.value = (fp0/(fp0+tp0)) - (fp1/(fp1+tp1)) 
     return metric
 
+def predictive_parity(cm0,cm1):
+    _, fp0, _, tp0 = cm0 # unprivileged 
+    _, fp1, _, tp1 = cm1 # privileged
+    metric = FairMetric()
+    metric.type = FairMetricEnum.PP
+    metric.value = (tp0/(tp0+fp0)) - (tp1/(tp1+fp1)) 
+    return metric
+
+def conditional_accuracy_equality(cm0,cm1):
+    tn0, fp0, fn0, tp0 = cm0 # unprivileged 
+    tn1, fp1, fn1, tp1 = cm1 # privileged
+    metric = FairMetric()
+    metric.type = FairMetricEnum.CEA
+    metric.value = ((tp0/(tp0+fp0))+(tn0/(tn0+fn0))) - ((tp1/(tp1+fp1))+(tn1/(tn1+fn1)))
+    return metric
+
+
+
     
-def computeFairnessMetrics(isOriginalModel, metrics, sFeature, X_test, y_test, y_pred):
+def computeFairnessMetrics(metrics, sFeature, X_test, y_test, y_pred):
     """
     Calculate fariness metrics for a given ensemble of instances. 
     
@@ -136,10 +154,14 @@ def computeFairnessMetrics(isOriginalModel, metrics, sFeature, X_test, y_test, y
     X_test_array = np.array(X_test)
 
     results = {}
-    for value in set(X_test_array[:, sFeature.featureIndex]): # default = sFeature.unprivPop
+    
+    possible_values = list(set(X_test_array[:, sFeature.featureIndex])) # default = sFeature.unprivPop
+    if len(possible_values) == 2:
+        possible_values = possible_values[:-1]
+
+    for value in possible_values: 
 
         results[str(value)] = []
-        print(value)
 
         if sFeature.type == 0: # numeric sensitive feature
             sens_array = X_test_array[:, sFeature.featureIndex] 
@@ -168,5 +190,9 @@ def computeFairnessMetrics(isOriginalModel, metrics, sFeature, X_test, y_test, y
                     results[str(value)].append(predictive_equality(cm0,cm1))
                 elif i == FairMetricEnum.EOD:
                     results[str(value)].append(equalized_odds(cm0,cm1))
+                elif i == FairMetricEnum.PP:
+                    results[str(value)].append(predictive_parity(cm0,cm1))
+                elif i == FairMetricEnum.CEA:
+                    results[str(value)].append(conditional_accuracy_equality(cm0,cm1))
         
     return results

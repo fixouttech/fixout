@@ -1,3 +1,10 @@
+
+{% if debug %}
+<head>
+{% include 'utils-web/imports.html' %}
+</head>
+{% endif %}
+
 <div class="container">
     <ul class="nav nav-pills mb-3" id="pills_fairFull-tab" role="tablist">
         <li class="nav-item">
@@ -28,63 +35,69 @@
         <div class="tab-pane fade" id="pills_fairFull-{{ sensitive_f }}" role="tabpanel" aria-labelledby="pills_fairFull-{{ sensitive_f }}-tab">
           
           <!-- Standard metrics -->
-          <div class="card-iso-{{ sensitive_f }}">
-            <div class="card-header" id="headingOne-{{ sensitive_f }}">
-              <h5 class="mb-0">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#collapse_iso-{{ sensitive_f }}" aria-expanded="true" aria-controls="card-iso-{{ sensitive_f }}">
-                  <b> 
-                    Standard fairness metrics: ISO 24027 
-                  </b>
-                </button>
-                <a style="float: right;"  href="https://www.iso.org/standard/77607.html"><img src="{{url_for('static', filename='iso-2.svg')}}" width="25" alt="ISO"></a>
-                
-              </h5>
+          <h5 class="mb-0">
+            <button class="btn btn-link" data-toggle="collapse" data-target="#collapse_iso-{{ sensitive_f }}" aria-expanded="true" aria-controls="card-iso-{{ sensitive_f }}">
+              <b> 
+                Standard fairness metrics: ISO 24027 
+              </b>
+            </button>
+            <a style="float: right;"  href="https://www.iso.org/standard/77607.html"><img src="{{url_for('static', filename='iso-2.svg')}}" width="25" alt="ISO"></a>
+            
+          </h5>
 
-
-            </div>
-        
-            <div id="collapse_iso-{{ sensitive_f }}" class="collapse" aria-labelledby="headingOne-{{ sensitive_f }}" data-parent="#accordion">
-              <div class="card-body">
+          <div class="card-body">
                 
-                {% for sensitive_f_name, metric_name, alert_flag, graphJSON in full_fairness_plots %}
-      
-                    {% if sensitive_f_name == sensitive_f %}
-      
-                        {% if alert_flag %}
-                          <div class="alert alert-danger" role="alert"> Warning: absolute disparities >= 0.25</div>
-                        {% endif %}
-      
-                        
-                        <div id="fairness_full_{{ sensitive_f_name }}_{{ metric_name }}">
-                                                
-                          <script>
-                                var v = {{ metric_name }};
-                                if (v == "0") {
-                                  v = 'Equality of opportunity';
-                                } else if (v == "1") {
-                                  v = 'Demographic parity';
-                                } else if (v == "2") {
-                                  v = 'Predictive equality';
-                                } else if (v == "3") {
-                                  v = 'Equalized odds';
-                                }
-                                var graphs = {{graphJSON | safe}};
-                                
-                                layout = {
-                                    barmode: "group",
-                                    animation_frame : "x", 
-                                    animation_group : "x",
-                                    title: v
-                                };
-                                
-                                Plotly.plot('fairness_full_{{ sensitive_f_name }}_{{ metric_name }}', graphs, layout, config = {'displayModeBar': false});
-                            </script>
-                        </div>
+            {% for sensitive_f_name, graphJSON_list_sensFeature in full_fairness_plots %}
+              
+              <div class="d-flex flex-wrap">
+              
+                {% if sensitive_f_name == sensitive_f %}
+            
+                  {% for metric_name, alert_flag, graphJSON in graphJSON_list_sensFeature %}
+                
+                
+                    {% if alert_flag %}
+                    <div class="alert alert-danger" role="alert"> Warning: absolute disparities >= 0.25</div>
                     {% endif %}
-                {% endfor %}
 
+                    <div class="card border-0">
+                      <div id="fairness_full_{{ sensitive_f_name }}_{{ metric_name }}">
+                                              
+                        <script>
+                          var v = {{ metric_name }};
+                          if (v == "0") {
+                            v = 'Equality of opportunity';
+                          } else if (v == "1") {
+                            v = 'Demographic parity';
+                          } else if (v == "2") {
+                            v = 'Predictive equality';
+                          } else if (v == "3") {
+                            v = 'Equalized odds';
+                          }
+                          var graphs = {{graphJSON | safe}};
+                          
+                          layout = {
+                              barmode: "group",
+                              animation_frame : "x", 
+                              animation_group : "x",
+                              title: v,
+                              width: 500,
+                              height: 400
+                            };
+                            
+                            Plotly.plot('fairness_full_{{ sensitive_f_name }}_{{ metric_name }}', graphs, layout, config = {'displayModeBar': false});
+                          </script>
+                      </div>
+                    </div>
+                    
+                  {% endfor %}
+                
+                {% endif %}
+              
               </div>
-            </div>
+
+            {% endfor %}
+
           </div>
           
           <!-- Non-standard metrics -->
@@ -101,6 +114,54 @@
 
             <div id="collapse_noniso-{{ sensitive_f }}" class="collapse" aria-labelledby="headingTwo-{{ sensitive_f }}" data-parent="#accordion">
               <div class="card-body">
+                
+                {% for sensitive_f_name, graphJSON_list_sensFeature in other_fairness_plots %}
+                  
+                  <div class="d-flex flex-wrap">
+                  
+                    {% if sensitive_f_name == sensitive_f %}
+                
+                      {% for metric_name, alert_flag, graphJSON in graphJSON_list_sensFeature %}
+                    
+                    
+                        {% if alert_flag %}
+                        <div class="alert alert-danger" role="alert"> Warning: absolute disparities >= 0.25</div>
+                        {% endif %}
+    
+                        <div class="card border-0">
+                          <div id="other_fairness_{{ sensitive_f_name }}_{{ metric_name }}">
+                                                  
+                            <script>
+                              var v = {{ metric_name }};
+                              if (v == "4") {
+                                v = 'Predictive Parity';
+                              } else if (v == "5") {
+                                v = 'Conditional use accuracy equality';
+                              } 
+                              var graphs = {{graphJSON | safe}};
+                              
+                              layout = {
+                                  barmode: "group",
+                                  animation_frame : "x", 
+                                  animation_group : "x",
+                                  title: v,
+                                  width: 500,
+                                  height: 400
+                                };
+                                
+                                Plotly.plot('other_fairness_{{ sensitive_f_name }}_{{ metric_name }}', graphs, layout, config = {'displayModeBar': false});
+                              </script>
+                          </div>
+                        </div>
+                        
+                      {% endfor %}
+                    
+                    {% endif %}
+                  
+                  </div>
+    
+                {% endfor %}
+      
 
               </div>
             </div>
@@ -115,3 +176,8 @@
 
     </div>
   </div>
+
+  
+  {% if debug %}
+  {% include 'utils-web/scripts.html' %}
+  {% endif %}

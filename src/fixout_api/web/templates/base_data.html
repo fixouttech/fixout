@@ -1,109 +1,78 @@
-<br>
 
-<div class="container">
-  <h5> Overview</h5>
-
-  <div style="display: table;">
-    <div style="display: table-row;">
-
-      {% block datahistograms %} {% endblock%}
-
-    </div>
-  </div>
-</div>
-
-<div class="alert alert-warning" role="alert"> <span class="octicon octicon-question"></span> Not sure which one is sensitive? Try out the <b>detector of disparity prone features</b> <span class="octicon octicon-arrow-right"></span> </div>
-
-
-<div class="container">
-  <div class="d-flex flex-nowrap">
-      <h5 class="p-2"> 
-        Correlation    
-      </h5>
-      <nav>
-        <div class="nav nav-pills" id="pills-tab" role="tablist">
-          <a class="nav-item nav-link btn-light active" id="nav-pearson-tab" data-toggle="pill" href="#nav-pearson" type="button" role="tab" aria-controls="nav-pearson" aria-selected="true">Pearson</a>
-          <a class="nav-item nav-link btn-light" id="nav-spearman-tab" data-toggle="pill" href="#nav-spearman" type="button" role="tab" aria-controls="nav-spearman" aria-selected="false">Spearman</a>
-          </div>
-      </nav>
-  </div>
-  
-  <div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade show active" id="nav-pearson" role="tabpanel" aria-labelledby="nav-pearson-tab">
-        
-      <div class="d-flex flex-nowrap">
-        <div class="p-2">
-          {% block pearson_corr_diagram %} {% endblock%} 
-        </div>
-    
-        <div class="p-2">
-    
-          <h5> Non-sensitive correlated to sensitive </h5>
-          <br>
-    
-          <div id="accordion">
-            
-            {% block pearson_nonsensf_sensf %} {% endblock%} 
-            
-          </div>
-        </div>
-    
-      </div>
-
-
-    </div>
-    
-    <div class="tab-pane fade" id="nav-spearman" role="tabpanel" aria-labelledby="nav-spearman-tab">
-        
-      <div class="d-flex flex-nowrap">
-        <div class="p-2">
-          {% block spearman_corr_diagram %} {% endblock%} 
-        </div>
-    
-        <div class="p-2">
-    
-          <h5> Non-sensitive correlated to sensitive </h5>
-          <br>
-    
-          <div id="accordion">
-            
-            {% block spearman_nonsensf_sensf %} {% endblock%} 
-            
-          </div>
-        </div>
-    
-      </div>
-
-    </div>
-</div>
-
-  
-</div>
-
-
-<br>
-<p>
-    <h5>Visualisation per sensitive feature</h5>
-</p>
-
-<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+<div style="display: inline-center;">
+  <ul class="nav mb-3" id="pills-tab-data" role="tablist">
+    <div style="display: flex; align-items: center; border: 5px solid #ffffff00;" ><b style="color: rgb(104, 104, 104)">Data slices available:   </b></div>
     <li class="nav-item">
-      <a class="nav-link active" id="pills-home_data-tab" data-toggle="pill" href="#pills-home_data" role="tab" aria-controls="pills-home_data" aria-selected="true">ℹ️</a>
+      <a class="btn btn-light active" id="pills-training-tab" data-toggle="pill" href="#pills-training" role="tab" aria-controls="pills-training" aria-selected="true">Training</a>
     </li>
+    {% for i in range(num_data_slices): %}
+    <li class="nav-item">
+      <a class="btn btn-light" id="pills-testing-tab" data-toggle="pill" href="#pills-testing" role="tab" aria-controls="pills-testing" aria-selected="false">Testing {{ i+1 }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="tab-content" id="pills-tabContent-data">
+
+  <div class="tab-pane fade show active" id="pills-training" role="tabpanel" aria-labelledby="pills-training-tab">
+
+    <div id="data_overview_0"></div>
+    <div id="correlation_analysis_0"></div>
+    <div id="visu_0"></div>
+    <div id="reversed_0"></div>
+
+    <script> 
+      $("#data_overview_0").load("histo/0");
+    </script> 
+
+    <script> 
+      $("#reversed_0").load("rev/0");
+    </script> 
+
+    <script> 
+      $("#visu_0").load("visu/0");
+    </script> 
     
-    {% block features_choice %} {% endblock%} 
-  
-    </ul>
-
-    <div class="tab-content" id="pills-tabContent">
-      <div class="tab-pane fade show active" id="pills-home_data" role="tabpanel" aria-labelledby="pills-home_data-tab">
-        
-          <div>
-            <p class="card-subtitle mb-2 text-muted">Please select a sensitive feature.</p>
-          </div>
-
-      </div>
-      
-      {% block visualisation %} {% endblock%} 
-      
+    <script> 
+      $("#correlation_analysis_0").load("corr/0");
+    </script> 
+    
   </div>
+
+  {% for i in range(num_data_slices): %}
+
+    <div class="tab-pane fade" id="pills-testing" role="tabpanel" aria-labelledby="pills-testing-tab">
+
+      <div id="data_overview_{{ i+1 }}"></div>
+      <div id="correlation_analysis_{{ i+1 }}"></div>
+      <div id="visu_{{ i+1 }}"></div>
+      <div id="reversed_{{ i+1 }}"></div>
+  
+      <script> 
+        $("#data_overview_{{ i+1 }}").load("histo/{{ i+1 }}");
+      </script> 
+  
+      <script> 
+        $("#reversed_{{ i+1 }}").load("rev/{{ i+1 }}");
+      </script> 
+  
+      <script> 
+        $("#visu_{{ i+1 }}").load("visu/{{ i+1 }}");
+      </script> 
+      
+      <script> 
+        $("#correlation_analysis_{{ i+1 }}").load("corr/{{ i+1 }}");
+      </script> 
+      
+    
+    </div>
+  {% endfor %}
+
+</div>
+
+
+
+
+
+

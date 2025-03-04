@@ -1,0 +1,106 @@
+
+{% if debug %}
+<head>
+    {% include 'utils-web/imports.html' %}
+</head>
+{% endif %}
+
+<br>
+<p>
+    <h5>Visualisation per sensitive feature</h5>
+</p>
+
+
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link {% if plots_visu|length == 0 %}active{% endif %} " id="pills-visu-{{ index_data }}-home-tab" data-toggle="pill" href="#pills-visu-{{ index_data }}" role="tab" aria-controls="pills-visu-{{ index_data }}" aria-selected="true"><span class="octicon octicon-info"></span></a>
+    </li>
+
+    {% for sensitive_f_name, sensitive_feature_index,graphJSON_pca, graphJSON_tsne in plots_visu %}
+        <li class="nav-item">
+            <a class="nav-link {% if loop.first %}active{% endif %}" id="pills_visu-{{ index_data }}-{{ sensitive_f_name }}-tab" data-toggle="pill" href="#pills-visu-{{ index_data }}-{{ sensitive_f_name }}" role="tab" aria-controls="pills-visu-{{ index_data }}-{{ sensitive_f_name }}" aria-selected="false">{{ sensitive_f_name }}</a>
+        </li>
+
+    {% endfor %}
+      
+</ul>
+
+    <div class="tab-content" id="pills-visu">
+      <div class="tab-pane fade {% if plots_visu|length == 0 %}show{% endif %}" id="pills-visu-{{ index_data }}" role="tabpanel" aria-labelledby="pills-visu-{{ index_data }}">
+        
+          <div>
+            <p class="card-subtitle mb-2 text-muted">Please select a sensitive feature.</p>
+            <h6>
+                <mark style="background-color:rgb(255, 234, 228)">
+                    ⚠  This functionality is under development
+                </mark>
+            </h6>
+          </div>
+
+      </div>
+      
+      {% for sensitive_f_name, sensitive_feature_index, graphJSON_pca, graphJSON_tsne in plots_visu %}
+
+        <div class="tab-pane fade {% if loop.first %}active show{% endif %}" id="pills-visu-{{ index_data }}-{{ sensitive_f_name }}" role="tabpanel" aria-labelledby="pills-visu-{{ index_data }}-{{ sensitive_f_name }}">
+            
+            <div class="d-flex flex-nowrap">
+                <div class="w-50 p-3" id="plot_{{ index_data }}_{{ sensitive_f_name }}_data"> </div>
+                <div class="w-50 p-3" id="plot_{{ index_data }}_{{ sensitive_f_name }}_data2"> </div>
+            </div>
+
+            <script>
+                var graphs = {{ graphJSON_pca | safe}};
+            
+                layout = {
+                    title: "PCA",
+                    animation_frame : "x", 
+                    animation_group : "x",
+                    width: 500,
+                    height: 300,
+                    margin: {
+                        l:25,
+                        r:50,
+                        b:50,
+                        t:25,
+                        pad:2
+                        }
+                };
+                Plotly.plot('plot_{{ index_data }}_{{ sensitive_f_name }}_data', graphs, layout, config = {'displayModeBar': false});
+            </script>
+
+            <script>
+                var graphs = {{graphJSON_tsne | safe}};
+
+                layout = {
+                    title: "t-SNE",
+                    animation_frame : "x", 
+                    animation_group : "x",
+                    width: 500,
+                    height: 300,
+                    margin: {
+                        l:50,
+                        r:25,
+                        b:50,
+                        t:25,
+                        pad:2
+                        }
+                };
+                Plotly.plot('plot_{{ index_data }}_{{ sensitive_f_name }}_data2', graphs, layout, config = {'displayModeBar': false});
+            </script>
+
+
+            
+        </div>
+    {% endfor %}
+      
+    </div>
+
+
+
+
+
+    
+
+{% if debug %}
+{% include 'utils-web/scripts.html' %}
+{% endif %}

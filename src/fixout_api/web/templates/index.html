@@ -3,7 +3,6 @@
 {% block content %}
 
 <p></p>
-<h2>{{ report_details.repport_name }} </h2> 
 <p>
     <b>Generated:</b> {{ report_details.generated }} <br>
 
@@ -38,26 +37,32 @@
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Data</a>
         <a class="nav-item nav-link" id="nav-metrics-tab" data-toggle="tab" href="#nav-metrics" role="tab" aria-controls="nav-metrics" aria-selected="false">Metrics</a>
-        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Model</a>
-        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Explanations</a>
-        <a class="nav-item nav-link" id="nav-temp-tab" data-toggle="tab" href="#nav-temp" role="tab" aria-controls="nav-temp" aria-selected="false">Comparison </a>
+        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Explanations 
+            <img src="{{url_for('static', filename='pfixout.png')}}" width="12" alt="FixOut">
+        </a>
+        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Model 
+            <img src="{{url_for('static', filename='pfixout.png')}}" width="12" alt="FixOut">
+        </a>
+        <a class="nav-item nav-link" id="nav-temp-tab" data-toggle="tab" href="#nav-temp" role="tab" aria-controls="nav-temp" aria-selected="false">Geo 
+            <img src="{{url_for('static', filename='pfixout.png')}}" width="12" alt="FixOut">
+        </a>
       </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
       <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" style="margin-top: 1rem!important;">
-          {% include 'data.html' %}
+          {% include 'base_data.html' %}
       </div>
       
       <div class="tab-pane fade" id="nav-metrics" role="tabpanel" aria-labelledby="nav-metrics-tab" style="margin-top: 1rem!important;">
-          {% include 'metrics.html' %}
+          {% include 'base_metrics.html' %}
       </div>
       
       <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" style="margin-top: 1rem!important;">
-          {% include 'model.html' %}
+          {% include 'premium.html' %}
       </div>
   
       <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" style="margin-top: 1rem!important;">
-          {% include 'explanations.html' %}
+          {% include 'premium.html' %}
       </div>
   
       <div class="tab-pane fade" id="nav-temp" role="tabpanel" aria-labelledby="nav-temp-tab" style="margin-top: 1rem!important;">

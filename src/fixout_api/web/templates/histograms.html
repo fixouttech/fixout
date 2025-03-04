@@ -1,0 +1,100 @@
+{% if debug %}
+<head>
+{% include 'utils-web/imports.html' %}
+</head>
+{% endif %}
+
+
+<br>
+
+<div class="container">
+  <h5> Overview</h5>
+
+  <div style="display: table;">
+    <div style="display: table-row;">
+
+        {% for sens_f_name, hist in histograms %}
+        <div id="{{ index_data }}_hist_{{ sens_f_name }}" style="display: table-cell;">
+            <script>
+            var graphs = {{ hist | safe}};
+            
+            layout = {
+                barmode:'overlay',
+                title: "{{ sens_f_name }}",
+                width: 270,
+                height: 225,
+                bargroupgap: 0.1,
+                margin: {
+                    l:25,
+                    r:25,
+                    b:60,
+                    t:60,
+                    pad:2
+                },
+                xaxis: {visible: true}
+                };
+            
+            Plotly.plot('{{ index_data }}_hist_{{ sens_f_name }}', graphs, layout, config = {'displayModeBar': false});
+            </script>
+        </div>
+        {% endfor %}
+
+    </div>
+    
+  </div>
+  
+  <div class="card-inter">
+    <div class="card-header" id="headingOne-inter">
+      <h6 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#{{ index_data }}_collapse_inter" aria-expanded="true" aria-controls="card_inter">
+          <b> 
+            Intersectionality
+          </b>
+        </button>
+      </h6>
+  
+  
+    </div>
+  
+    <div id="{{ index_data }}_collapse_inter" class="collapse" aria-labelledby="headingOne-inter" data-parent="#accordion">
+      <div class="card-body">
+        
+        {% for sens_f_name, hist in inter_histograms %}
+            <div id="{{ index_data }}_hist_inter_{{ sens_f_name }}" style="display: table-cell;">
+                <script>
+                var graphs = {{ hist | safe}};
+                
+                layout = {
+                    barmode:'overlay',
+                    title: "{{ sens_f_name }}",
+                    width: 275,
+                    height: 225,
+                    bargroupgap: 0.1,
+                    margin: {
+                        l:50,
+                        r:25,
+                        b:60,
+                        t:60,
+                        pad:2
+                    },
+                    xaxis: {visible: true}
+                    };
+                
+                Plotly.plot('{{ index_data }}_hist_inter_{{ sens_f_name }}',graphs, layout, config = {'displayModeBar': false});
+                </script>
+            </div>
+        {% endfor %}
+  
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-warning" role="alert"> <span class="octicon octicon-question"></span> Not sure which one could be sensitive? Try out the <b>detector of disparity prone features</b> <span class="octicon octicon-arrow-right"></span> </div>
+
+
+  
+</div>
+
+{% if debug %}
+{% include 'utils-web/scripts.html' %}
+{% endif %}

@@ -1,0 +1,173 @@
+
+{% if debug %}
+<head>
+{% include 'utils-web/imports.html' %}
+</head>
+{% endif %}
+
+
+<div class="container">
+    <div class="d-flex flex-nowrap">
+        <h5 class="p-2"> 
+          Correlation    
+        </h5>
+        <nav>
+          <div class="nav nav-pills" id="pills-tab" role="tablist">
+            <a class="nav-item nav-link btn-light active" id="nav-pearson-tab" data-toggle="pill" href="#nav-{{ index_data }}-pearson" type="button" role="tab" aria-controls="nav-pearson" aria-selected="true">Pearson</a>
+            <a class="nav-item nav-link btn-light" id="nav-spearman-tab" data-toggle="pill" href="#nav-{{ index_data }}-spearman" type="button" role="tab" aria-controls="nav-spearman" aria-selected="false">Spearman</a>
+            </div>
+        </nav>
+    </div>
+    
+    <div class="tab-content" id="train-corr">
+      <div class="tab-pane fade show active" id="nav-{{ index_data }}-pearson" role="tabpanel" aria-labelledby="nav-{{ index_data }}-pearson">
+          
+        <div class="d-flex flex-nowrap">
+          <div class="w-50 p-3">
+            
+            <div id="{{ index_data }}_PearCorr_heatmap">
+              <script>
+                  var graphs = {{pearCorr_heatmap | safe}};
+                  
+                  layout = {
+                      width: 500,
+                      height: 300,
+                      bargroupgap: 0.3,
+                      margin: {
+                        l:100,
+                        r:100,
+                        b:0,
+                        t:0,
+                        pad:2
+                      },
+                      xaxis: {visible: false}
+                  };
+                  
+                  Plotly.plot('{{ index_data }}_PearCorr_heatmap', graphs, layout, config = {'displayModeBar': false});
+              </script>
+            </div>
+  
+          </div>
+      
+          <div class="w-50 p-3">
+      
+            <h5> Non-sensitive correlated to sensitive 
+              <a class="popoverData" class="btn" style="margin:0px;"
+              href="#" data-content="Only features with abs(correlation) >= 0.1 are displayed" 
+              rel="popover" data-placement="right" data-trigger="hover"><span class="octicon octicon-question"></span> </a>
+            </h5>
+            <br>
+   
+            {% for sensitive_feature_index,duplas in pearCorr_rankings %} <!-- corrigir -->
+        
+              <div class="card">
+                  <div class="card-header" id="{{ index_data }}_PearCorr_ranking">
+                  <h5 class="mb-0">
+                      <button class="btn btn-link" data-toggle="collapse" data-target="#collapse_{{ index_data }}_pear_{{ sensitive_feature_index }}" aria-expanded="true" aria-controls="collapse_{{ index_data }}_pear_{{ sensitive_feature_index }}">
+                      <b>{{ sensitive_feature_index}}</b>
+                  </button>
+                  </h5>
+                  </div>
+              
+                  <div id="collapse_{{ index_data }}_pear_{{ sensitive_feature_index }}" class="collapse" aria-labelledby="collapse_{{ index_data }}_pear_{{ sensitive_feature_index }}" data-parent="#accordion">
+                  <div class="card-body">
+                    <ul class="list-group">
+                      {% for f_name, f_corr in duplas %}
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                          {{ f_name }}
+                          <span class="badge badge-light badge-pill"> 
+                          {{ f_corr }}
+                          </span>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                  </div>
+              </div>
+
+            {% endfor %} 
+              
+          </div>
+
+      
+        </div>
+            
+    </div>
+    
+    <!-- Spearman -->
+    <div class="tab-pane fade" id="nav-{{ index_data }}-spearman" role="tabpanel" aria-labelledby="nav-{{ index_data }}-spearman">
+          
+        <div class="d-flex flex-nowrap">
+          <div class="w-50 p-3">
+
+            <div id="{{ index_data }}_SpeaCorr_heatmap">
+                <script>
+                    var graphs = {{speaCorr_heatmap | safe}};
+                    
+                    layout = {
+                        width: 500,
+                        height: 300,
+                        bargroupgap: 0.3,
+                        margin: {
+                          l:100,
+                          r:100,
+                          b:0,
+                          t:0,
+                          pad:2
+                        },
+                        xaxis: {visible: false}
+                    };
+                    
+                    Plotly.plot('{{ index_data }}_SpeaCorr_heatmap', graphs, layout, config = {'displayModeBar': false});
+                </script>
+            </div>
+
+          </div>
+      
+          <div class="w-50 p-3">
+      
+            <h5> Non-sensitive correlated to sensitive </h5>
+            <br>
+         
+              {% for sensitive_feature_index,duplas in speaCorr_rankings %} <!-- corrigir -->
+          
+                <div class="card">
+                    <div class="card-header" id="{{ index_data }}_SpeaCorr_ranking">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse_{{ index_data }}_spea_{{ sensitive_feature_index }}" aria-expanded="true" aria-controls="collapse_{{ index_data }}_spea_{{ sensitive_feature_index }}">
+                        <b>{{ sensitive_feature_index}}</b>
+                    </button>
+                    </h5>
+                    </div>
+                
+                    <div id="collapse_{{ index_data }}_spea_{{ sensitive_feature_index }}" class="collapse" aria-labelledby="collapse_{{ index_data }}_spea_{{ sensitive_feature_index }}" data-parent="#accordion">
+                    <div class="card-body">
+                      <ul class="list-group">
+                        {% for f_name, f_corr in duplas %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ f_name }}
+                            <span class="badge badge-light badge-pill"> 
+                            {{ f_corr }}
+                            </span>
+                        </li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                    </div>
+                </div>
+  
+              {% endfor %} 
+
+          </div>
+      
+        </div>
+  
+      </div>
+  </div>
+  
+    
+  </div>
+
+  {% if debug %}
+  {% include 'utils-web/scripts.html' %}
+  {% endif %}

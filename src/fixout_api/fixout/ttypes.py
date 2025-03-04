@@ -60,12 +60,16 @@ class FairMetricEnum(object):
     EO = 1
     PE = 2
     EOD = 3
+    PP = 4
+    CEA = 5
 
     _VALUES_TO_NAMES = {
         0: "DP",
         1: "EO",
         2: "PE",
         3: "EOD",
+        4: "PP",
+        5: "CEA",
     }
 
     _NAMES_TO_VALUES = {
@@ -73,6 +77,8 @@ class FairMetricEnum(object):
         "EO": 1,
         "PE": 2,
         "EOD": 3,
+        "PP": 4,
+        "CEA": 5,
     }
 
 
