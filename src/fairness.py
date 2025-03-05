@@ -1,4 +1,4 @@
-from fixout.ttypes import FairMetric, FairMetricEnum
+from interface.ttypes import FairMetric, FairMetricEnum
 
 import numpy as np
 from sklearn.preprocessing import binarize

@@ -7,7 +7,7 @@ from sklearn.preprocessing import LabelEncoder
 
 from artifact import FixOutArtifact
 from fairness import computeFairnessMetrics
-from fixout.ttypes import SensitiveFeature, FairMetricEnum
+from interface.ttypes import SensitiveFeature, FairMetricEnum
 
 from sklearn import linear_model
 from sklearn import tree
