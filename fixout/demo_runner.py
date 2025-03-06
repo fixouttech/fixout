@@ -1,12 +1,12 @@
 """
 This is a demo of how to use the open-source version of FixOut
 """
-from basic_ml import importGermanData
+from demo_data import importGermanData
 
 from artifact import FixOutArtifact
 from helper import FixOutHelper
 
-def main():
+def demo():
     
     model, X_train, X_test, y_train, y_test, features_name, dic = importGermanData()
 
@@ -29,4 +29,4 @@ def main():
 
 if __name__ == '__main__':
 
-    main()
+    demo()

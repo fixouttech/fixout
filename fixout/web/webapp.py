@@ -1,7 +1,6 @@
 from flask import Flask, redirect, render_template, url_for
 from flask import request
 from flask import jsonify
-from werkzeug.exceptions import abort
 
 import plotly
 import plotly.graph_objs as go

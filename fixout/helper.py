@@ -5,7 +5,6 @@ import copy
 
 from sklearn.preprocessing import LabelEncoder
 
-from artifact import FixOutArtifact
 from fairness import computeFairnessMetrics
 from interface.ttypes import SensitiveFeature, FairMetricEnum
 
@@ -20,7 +19,7 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import balanced_accuracy_score
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
-from sklearn.metrics import f1_score
+
 
 import web.webapp as interface
 
