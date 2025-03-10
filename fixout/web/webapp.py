@@ -10,8 +10,8 @@ import numpy as np
 import json
 import pickle
 
-import web.dataset as dat
-import web.fair_exp as fair_exp
+import fixout.web.dataset as dat
+import fixout.web.fair_exp as fair_exp
 
 from scipy.stats import spearmanr
 from scipy.stats import pearsonr

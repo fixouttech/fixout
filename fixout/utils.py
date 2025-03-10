@@ -1,6 +1,6 @@
 import sklearn
 from sklearn.ensemble import AdaBoostClassifier,BaggingClassifier,RandomForestClassifier
-from interface.ttypes import ModelType
+from fixout.interface.ttypes import ModelType
 
 def getModelType(model):
 

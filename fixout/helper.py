@@ -5,8 +5,8 @@ import copy
 
 from sklearn.preprocessing import LabelEncoder
 
-from fairness import computeFairnessMetrics
-from interface.ttypes import SensitiveFeature, FairMetricEnum
+from fixout import fairness
+from fixout.interface.ttypes import SensitiveFeature, FairMetricEnum
 
 from sklearn import linear_model
 from sklearn import tree
@@ -21,7 +21,7 @@ from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
 
 
-import web.webapp as interface
+import fixout.web.webapp as interface
 
 clazzes = [(linear_model.RidgeClassifier,"linear reg"),
             (tree.DecisionTreeClassifier,"tree"),
@@ -175,7 +175,7 @@ class FixOutHelper:
         
         results = []
         for sensitiveFeature in sensFeatures:
-            r = computeFairnessMetrics(metrics,
+            r = fairness.computeFairnessMetrics(metrics,
                                        sensitiveFeature, 
                                        X, 
                                        y,
@@ -203,14 +203,14 @@ class FixOutHelper:
 
         for name_method, preditions in predictions_list:
             for sensitiveFeature in self.sensitivefeatureslist:
-                r = computeFairnessMetrics(self.output["metrics_list"],
+                r = fairness.computeFairnessMetrics(self.output["metrics_list"],
                                         sensitiveFeature, 
                                         self.input["X"].tolist(), 
                                         self.input["y"].tolist(),
                                         preditions)
                 self.output["result"].append((sensitiveFeature,r,name_method))
 
-                nonStandardR = computeFairnessMetrics(self.output["nonStandardMetricsToBeCalculated"],
+                nonStandardR = fairness.computeFairnessMetrics(self.output["nonStandardMetricsToBeCalculated"],
                                        sensitiveFeature, 
                                        self.input["X"].tolist(), 
                                        self.input["y"].tolist(),

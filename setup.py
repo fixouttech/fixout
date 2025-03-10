@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='fixout',
-    version='0.1.15',
+    version='0.1.16',
     description='Algorithmic inspection for trustworthy ML models',
     packages=find_packages(),
     long_description=open("README.md").read(),

@@ -3,3 +3,6 @@
 /fixout.egg-info
 /storage
 setup.py
+/fixout/__pycache__
+demo_data.py
+demo_runner.py
