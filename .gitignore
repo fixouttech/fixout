@@ -2,7 +2,9 @@
 /dist
 /fixout.egg-info
 /storage
-setup.py
+/__pycache__
 /fixout/__pycache__
+setup.py
 demo_data.py
 demo_runner.py
+demo_jupyter.ipynb

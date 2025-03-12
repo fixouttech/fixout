@@ -11,4 +11,4 @@ from .fairness import (
     equalized_odds,
     )
 
-__all__ = ['artifact', 'fairness', 'helper', 'utils', 'demo_data', 'demo_runner']
+__all__ = ['artifact', 'fairness', 'helper', 'utils']

@@ -3,6 +3,7 @@ import pickle
 import datetime
 import copy
 
+from sklearn.exceptions import UndefinedMetricWarning
 from sklearn.preprocessing import LabelEncoder
 
 from fixout import fairness
@@ -19,6 +20,9 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import balanced_accuracy_score
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
+
+import warnings
+warnings.filterwarnings('ignore')
 
 
 import fixout.web.webapp as interface
@@ -185,14 +189,40 @@ class FixOutHelper:
         return results
 
     
-    def run(self, fxa, dic=None):
+    def run(self, fxa, show=True):
         self.common(fxa)
                 
-        pickle.dump((self.input, self.output),open(str("repport_output.fixout"),"wb"))
-
-        interface.app.run()
-        return self.output, None
+        if show:
+            pickle.dump((self.input, self.output),open(str("repport_output.fixout"),"wb"))
+            interface.app.run()
+            return self.output, None
+        
+        return None
     
+    '''
+    def data_distribution(self):
+        return None
+    def get_correlation(self):
+        return None
+    def get_reverse(self):
+        return None
+    def get_discriminatory(self):
+        return None
+    '''
+
+    def get_fairness(self,
+                     model="original",
+                     sensitivefeature=None):
+        
+        result = {}
+
+        for sensf, calculated_metrics, model_label in self.output["result"]:#, self.output["nonstandardResults"]]:
+            if sensitivefeature is not None and sensitivefeature == sensf.name:
+                result[model_label] = calculated_metrics
+            elif sensitivefeature is None:
+                result[model_label] = calculated_metrics
+
+        return result        
 
     def baselines(self):
 
@@ -251,7 +281,7 @@ class ReverseFairness():
                 r = self.build_reverse_model(clazz, _X, _y, _X_test, _y_test) 
                 results[sens_feature.name].append((clazz_name,r))
 
-        print(results)
+        #print(results)
 
         return results
 
@@ -276,9 +306,12 @@ class ReverseFairness():
 
         y_pred = clf.predict(X_test)
         
-        baccuracy = balanced_accuracy_score(y_test,y_pred)
-        precision = precision_score(y_test, y_pred, average='weighted')
-        recall = recall_score(y_test, y_pred, average='weighted')
+        try:
+            baccuracy = balanced_accuracy_score(y_test,y_pred)
+            precision = precision_score(y_test, y_pred, average='weighted')
+            recall = recall_score(y_test, y_pred, average='weighted')
+        except UndefinedMetricWarning:
+            print("except UndefinedMetricWarning:")
 
         return baccuracy, precision, recall
 
@@ -315,8 +348,12 @@ class UnfairModel():
 
         y_pred = clf.predict(X_test)
         
-        baccuracy = balanced_accuracy_score(y_test,y_pred)
-        precision = precision_score(y_test, y_pred)
-        recall = recall_score(y_test, y_pred)
+        try:
+            baccuracy = balanced_accuracy_score(y_test,y_pred)
+            precision = precision_score(y_test, y_pred)
+            recall = recall_score(y_test, y_pred)
+        except UndefinedMetricWarning:
+            print("except UndefinedMetricWarning:")
+
 
         return baccuracy, precision, recall

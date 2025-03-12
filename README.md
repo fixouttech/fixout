@@ -28,7 +28,8 @@ sensitive_features = [(19,0,"foreignworker"),
 
 # Create a FixOut Artifact with your model and data
 fxa = FixOutArtifact(model=model,
-                     data=[(X_test,y_test)],
+                     training_data=(X_train,y_train), 
+                     testing_data=[(X_test,y_test)],
                      features_name=features_name,
                      sensitive_features=sensitive_features,
                      dictionary=dic)

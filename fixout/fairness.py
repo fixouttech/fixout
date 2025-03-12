@@ -1,6 +1,7 @@
 from fixout.interface.ttypes import FairMetric, FairMetricEnum
 
 import numpy as np
+np.seterr(divide='ignore', invalid='ignore')
 from sklearn.preprocessing import binarize
 from sklearn.metrics import confusion_matrix
 
@@ -106,7 +107,7 @@ def predictive_parity(cm0,cm1):
     _, fp1, _, tp1 = cm1 # privileged
     metric = FairMetric()
     metric.type = FairMetricEnum.PP
-    metric.value = (tp0/(tp0+fp0)) - (tp1/(tp1+fp1)) 
+    metric.value = (tp0/(tp0+fp0)) - (tp1/(tp1+fp1))
     return metric
 
 def conditional_accuracy_equality(cm0,cm1):
