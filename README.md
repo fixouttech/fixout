@@ -16,29 +16,26 @@ How to start analysing a simple model (let's say you have trained a binary class
 
 
 ```python
-from artifact import FixOutArtifact
-from helper import FixOutHelper
+from fixout.artifact import FixOutArtifact
+from fixout.runner import FixOutRunner
 
-fixout = FixOutHelper("Credit Risk Assessment") 
+fxo = FixOutRunner("Credit Risk Assessment (German Credit)") 
 
 # Indicate the sensitive features
-sensitive_features = [(19,0,"foreignworker"), 
-                      (18,1,"telephone"), 
-                      (8,2,"statussex")] 
+sensitive_features = ["foreignworker","telephone","statussex"] 
 
 # Create a FixOut Artifact with your model and data
 fxa = FixOutArtifact(model=model,
-                     training_data=(X_train,y_train), 
-                     testing_data=[(X_test,y_test)],
-                     features_name=features_name,
-                     sensitive_features=sensitive_features,
-                     dictionary=dic)
-
+                      training_data=(X_train,y_train), 
+                      testing_data=[(X_test,y_test,"Testing")],
+                      features_name=features_name,
+                      sensitive_features=sensitive_features,
+                      dictionary=dic)
 ```
 
 Then run the inspection
 ```python
-fixout.run(fxa) 
+fxo.run(fxa, show=True)
 ```
 
 Finally, you can access the generated dashboard at <a href="http://localhost:5000" target="_blank" rel="noopener">http://localhost:5000</a> ;)

@@ -8,20 +8,20 @@ from sklearn.metrics import confusion_matrix
 
 def equalized_odds(cm0,cm1):
     """
-    Calculates the equalized odds.
+    Calculates the equalized odds (EOD) fairness metric.
     
     Parameters
     ----------
-    cm0 : 
-        The confusion matrix of the unprivileged subpopulation.
-    
-    cm1 : 
-        The confusion matrix of the privileged subpopulation.
+    cm0 : array-like
+        Confusion matrix for the unprivileged group.
+    cm1 : array-like
+        Confusion matrix for the privileged group.
 
     Returns
     -------
     metric : FairMetric
         The calculated equalized odds metric.
+    
     """
     tn0, fp0, fn0, tp0 = cm0 # unprivileged 
     tn1, fp1, fn1, tp1 = cm1 # privileged
@@ -32,20 +32,20 @@ def equalized_odds(cm0,cm1):
 
 def demographic_parity(cm0,cm1):
     """
-    Calculates the demographic parity metric.
+    Calculates the demographic parity (DP) fairness metric.
     
     Parameters
     ----------
-    cm0 : 
-        The confusion matrix of the unprivileged subpopulation.
-    
-    cm1 : 
-        The confusion matrix of the privileged subpopulation.
+    cm0 : array-like
+        Confusion matrix for the unprivileged group.
+    cm1 : array-like
+        Confusion matrix for the privileged group.
 
     Returns
     -------
     metric : FairMetric
         The calculated demographic parity metric.
+
     """
     tn0, fp0, fn0, tp0 = cm0 # unprivileged 
     tn1, fp1, fn1, tp1 = cm1 # privileged
@@ -56,20 +56,20 @@ def demographic_parity(cm0,cm1):
 
 def equal_opportunity(cm0,cm1):
     """
-    Calculates the equal opportunity metric.
+    Calculates the equal opportunity (EO) fairness metric.
     
     Parameters
     ----------
-    cm0 : 
-        The confusion matrix of the unprivileged subpopulation.
-    
-    cm1 : 
-        The confusion matrix of the privileged subpopulation.
+    cm0 : array-like
+        Confusion matrix for the unprivileged group.
+    cm1 : array-like
+        Confusion matrix for the privileged group.
 
     Returns
     -------
     metric : FairMetric
         The calculated equal opportunity metric.
+
     """
     _, _, fn0, tp0 = cm0 # unprivileged 
     _, _, fn1, tp1 = cm1 # privileged
@@ -84,11 +84,10 @@ def predictive_equality(cm0,cm1):
 
     Parameters
     ----------
-    cm0 : 
-        The confusion matrix of the unprivileged subpopulation.
-    
-    cm1 : 
-        The confusion matrix of the privileged subpopulation.
+    cm0 : array-like
+        Confusion matrix for the unprivileged group.
+    cm1 : array-like
+        Confusion matrix for the privileged group.
 
     Returns
     -------
@@ -103,6 +102,21 @@ def predictive_equality(cm0,cm1):
     return metric
 
 def predictive_parity(cm0,cm1):
+    """
+    Computes the Predictive Parity (PP) fairness metric.
+
+    Parameters
+    ----------
+    cm0 : array-like
+        Confusion matrix for the unprivileged group.
+    cm1 : array-like
+        Confusion matrix for the privileged group.
+
+    Returns
+    -------
+    FairMetric
+        The calculated predictive parity metric.
+    """
     _, fp0, _, tp0 = cm0 # unprivileged 
     _, fp1, _, tp1 = cm1 # privileged
     metric = FairMetric()
@@ -111,6 +125,22 @@ def predictive_parity(cm0,cm1):
     return metric
 
 def conditional_accuracy_equality(cm0,cm1):
+    """
+    Computes the Conditional Accuracy Equality (CEA) fairness metric.
+
+    Parameters
+    ----------
+    cm0 : array-like
+        Confusion matrix for the unprivileged group.
+    cm1 : array-like
+        Confusion matrix for the privileged group.
+
+    Returns
+    -------
+    FairMetric
+        The calculated conditional accuracy equality metric.
+
+    """
     tn0, fp0, fn0, tp0 = cm0 # unprivileged 
     tn1, fp1, fn1, tp1 = cm1 # privileged
     metric = FairMetric()
@@ -132,16 +162,19 @@ def computeFairnessMetrics(metrics, sFeature, X_test, y_test, y_pred):
     Parameters
     ----------
     metrics : list
-        List of metrics to be calculated.
+        List of fairness metric types to be calculated.
 
     sFeature : SensitiveFeature 
         Sensitive feature that will be take into account to calculate fairness metrics.
 
-    X_test : array-like of shape 
-        Dataset
-
-    y_test : array-like of shape 
-        Predicted outcomes related to X_test.
+    X_test : array-like
+        Feature matrix of the test set.
+    
+    y_test : array-like
+        True labels of the test set.
+    
+    y_pred : array-like
+        Predicted labels.
 
     Returns
     -------

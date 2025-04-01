@@ -1,3 +1,7 @@
+import os, signal
+import sys
+
+
 from flask import Flask, redirect, render_template, url_for
 from flask import request
 from flask import jsonify
@@ -16,8 +20,19 @@ import fixout.web.fair_exp as fair_exp
 from scipy.stats import spearmanr
 from scipy.stats import pearsonr
 
+# Redirect stdout and stderr
+#sys.stdout = open(os.devnull, 'w')
+#sys.stderr = open(os.devnull, 'w')
+
+
+import flask.cli
+flask.cli.show_server_banner = lambda *args: None
+
+import logging
+logging.getLogger("werkzeug").disabled = True
+
 app = Flask(__name__)
-app.config["TEMPLATES_AUTO_RELOAD"] = True
+#app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 storage_path = "storage/"
 
@@ -67,18 +82,18 @@ def index():
                            sensitive_features=wdata.input["sens_f_names"],
                            dataslices=dataslices)
 
-@app.route('/d/metrics/<int:data>')
+@app.route('/d/metrics/<int:data_slice_index>')
 def d_metrics(data_slice_index):
-    return redirect(url_for('metrics', data=data_slice_index, debug=True))
+    return redirect(url_for('metrics', data_slice_index=data_slice_index, debug=True))
 
-@app.route('/metrics/<int:data>')
-def metrics(data):
+@app.route('/metrics/<int:data_slice_index>')
+def metrics(data_slice_index):
     wdata = WebData()
     dictionary, f_names, sens_f_index, sens_f_names = wdata.meta_data()
-    if data == 0:
+    if data_slice_index == 0:
         X, y = wdata.data()
     else:
-        X, y, _ = wdata.testing_data()[data-1]
+        X, y, _ = wdata.testing_data()[data_slice_index-1]
 
     full_fairness_plots = fair_exp.generate_fairness_plots(wdata.output["result"],dictionary=dictionary)
     other_fairness_plots = fair_exp.generate_fairness_plots(wdata.output["nonstandardResults"],dictionary=dictionary)
@@ -180,5 +195,11 @@ def rev(data_slice_index):
                            rmodels_perf_plors = rmodels_perf_plors,
                            unfairmodel_perf_plots = unfairmodel_perf_plots) 
 
+
+#@app.route('/exit')
+#def stop():
+#    os.kill(os.getpid(), signal.SIGINT)
+#    return 
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)

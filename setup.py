@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
 
     name='fixout',
-    version='0.1.21',
+    version='0.1.24',
     description='Algorithmic inspection for trustworthy ML models',
     packages=find_packages(),
     package_data={'': ['web/templates/*.html',
@@ -31,7 +31,7 @@ setup(
         "Programming Language :: Python :: 3.2",
         "Operating System :: OS Independent"
     ],
-    python_requires=">=3.12.9",
+    python_requires=">=3.12",
     install_requires=[
         'Flask>=3.0.3',
         'Jinja2>=3.1.4',

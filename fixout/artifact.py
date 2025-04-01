@@ -1,7 +1,17 @@
 import numpy as np
 
 class FixOutArtifact:
-    
+    """
+    A fixout artifact.
+
+    A class for handling training and testing data.
+
+    See Also
+    --------
+    fixout.helper.FixOutHelper : A FixOut helper.
+
+    """
+
     def __init__(self,
                  features_name,
                  training_data,
@@ -12,6 +22,38 @@ class FixOutArtifact:
                  prob_y_pred=None, 
                  sensitive_features=[], 
                  dictionary=None):
+        """
+        Initializes the FixOutArtifact object with the provided data and configuration.
+
+        Parameters:
+        -----------
+        features_name : list
+            A list of feature names used in the dataset.
+        training_data : tuple or list
+            A tuple or list containing two elements:
+            - A 2D array or matrix (ndarray) of training features.
+            - A 1D array (ndarray) of target values.
+        testing_data : list of tuples, optional
+            A list of tuples containing testing data. Each tuple should be of the form (X_test, y_test, label).
+            If no testing data is provided, an empty list will be used (default is None).
+        nonnumeric_features : list, optional
+            A list of indices of non-numeric features. Default is an empty list.
+        model : object, optional
+            A machine learning model to be used for predictions. Default is None.
+        y_pred : array-like, optional
+            Predicted target values from the model. Default is None.
+        prob_y_pred : array-like, optional
+            Predicted probabilities for each class from the model. Default is None.
+        sensitive_features : list, optional
+            A list of sensitive features used for fairness evaluation. Default is an empty list.
+        dictionary : dict, optional
+            A dictionary for any additional information. Default is None.
+
+        Raises:
+        -------
+        ValueError
+            If `training_data` is not a tuple or list containing exactly two elements (features and targets).
+        """
         
         self.nonnumeric_features = nonnumeric_features
         self.features_name = features_name
