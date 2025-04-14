@@ -102,13 +102,41 @@ def generate_fairness_plots(fair_metrics, dictionary=None):
         for metric, data_metric in data_sensFeature.items():
             _x, _y, _z = data_metric
 
+            _names = []
+
+            for i in range(len(_z)):
+                # find the name of the category to be displayed
+                _name  = _z[i] if dictionary == None else dictionary[sensFeature_name_index[sensFeature_name]][float(_z[i])]
+                
+                # obtain un integer in order to define a color later on
+                sum_ascii_values = sum([ord(char) for char in str(_name)])
+                
+                _names.append(str(sum_ascii_values))
+
+                
+
+            data = [
+                go.Scatter(
+                    x = _x, 
+                    y = _y,
+                    mode = 'markers',
+                    #name = _names,
+                    #marker = dict(size = 10 if "original" != _x[i] else 15,
+                    #                color = colors[sum_ascii_values % len(colors)]),
+                    showlegend=False
+                )
+            ]
+
+            graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
+            graphJSON_list_sensFeature.append((metric, False, graphJSON))
+            '''
             for i in range(len(_z)):
 
                 # find the name of the category to be displayed
                 _name  = _z[i] if dictionary == None else dictionary[sensFeature_name_index[sensFeature_name]][float(_z[i])]
                 
                 # obtain un integer in order to define a color later on
-                sum_ascii_values = sum([ord(char) for char in _name]) 
+                sum_ascii_values = sum([ord(char) for char in str(_name)]) 
 
                 data = [
                     go.Scatter(
@@ -124,6 +152,7 @@ def generate_fairness_plots(fair_metrics, dictionary=None):
 
                 graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
                 graphJSON_list_sensFeature.append((metric, False, graphJSON))
+            '''
         
         graphJSON_list.append((sensFeature_name, graphJSON_list_sensFeature))
             

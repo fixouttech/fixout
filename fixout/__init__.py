@@ -1,6 +1,7 @@
 from .artifact import FixOutArtifact
 from .helper import ReverseFairness, UnfairModel, clazzes
 from .runner import FixOutRunner
+from .demos import demo_data
 
 
 from .fairness import (
@@ -12,4 +13,4 @@ from .fairness import (
     equalized_odds,
     )
 
-__all__ = ['artifact', 'fairness', 'helper', 'runner', 'utils']
+__all__ = ['artifact', 'fairness', 'helper', 'runner', 'utils', 'demos']

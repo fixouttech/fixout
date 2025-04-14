@@ -390,7 +390,7 @@ def statsInter(X,
                     data = [
                         go.Histogram(
                             #x=unprivPop,
-                            x = [x1a[k] + "-" + x1b[k] for k in range(len(x1a))], # .astype(str),
+                            x = [str(x1a[k]) + "-" + str(x1b[k]) for k in range(len(x1a))], # .astype(str),
                             #x= df.iloc[:,inter][target_indexes],#.to_numpy().flatten(),
                             name="True",
                             showlegend=False,
@@ -398,7 +398,7 @@ def statsInter(X,
                         ),
                         go.Histogram(
                             #x=unprivPop,
-                            x = [x2a[k] + "-" + x2b[k] for k in range(len(x2a))], #.astype(str),
+                            x = [str(x2a[k]) + "-" + str(x2b[k]) for k in range(len(x2a))], #.astype(str),
                             #x= df.iloc[:,inter][target_indexes_comp],#.to_numpy().flatten(),
                             name="False",
                             showlegend=False,

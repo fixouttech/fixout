@@ -3,14 +3,16 @@ from setuptools import setup, find_packages
 setup(
 
     name='fixout',
-    version='0.1.24',
+    version='0.1.28',
     description='Algorithmic inspection for trustworthy ML models',
     packages=find_packages(),
     package_data={'': ['web/templates/*.html',
                        'web/templates/utils-web/*.html',
                        'web/static/*.css',
                        'web/static/*.png',
-                       'web/static/*.svg']},
+                       'web/static/*.svg',
+                       'demos/*.py',
+                       'demos/data/*.data']},
     include_package_data=True,
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
@@ -31,12 +33,12 @@ setup(
         "Programming Language :: Python :: 3.2",
         "Operating System :: OS Independent"
     ],
-    python_requires=">=3.12",
+    python_requires=">=3.8",
     install_requires=[
         'Flask>=3.0.3',
         'Jinja2>=3.1.4',
         'numpy>=1.26.4',
-        'pandas>=2.2.3',
+        'pandas>=2.2.2',
         'plotly>=5.24.0',
         'scikit-image>=0.24.0',
         'scikit-learn>=1.5.2',

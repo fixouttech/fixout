@@ -5,8 +5,10 @@
 /storage
 /__pycache__
 /fixout/__pycache__
+/data
 setup.py
 demo_data.py
-demo_runner.py
+demo_credit.ipynb
+demo_income.ipynb
 demo_jupyter.ipynb
 repport_output.fixout
