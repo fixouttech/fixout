@@ -31,8 +31,7 @@ def demo2():
 
     fxo = FixOutRunner("Predicting Recidivism") 
 
-    #sensitive_features = [19,18,8] 
-    sensitive_features = ["sex","age","race"] 
+    sensitive_features = ["sex","age","race"] # or [19,18,8] 
 
     fxa = FixOutArtifact(model=model,
                          training_data=(X_train,y_train), 
@@ -63,4 +62,4 @@ def demo():
     
 
 if __name__ == '__main__':
-    demo3()
+    demo()

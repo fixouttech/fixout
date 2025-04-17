@@ -44,7 +44,7 @@ class FixOutRunner:
 
         self.output = {}
 
-    def __common(self, fxa):
+    def _common(self, fxa):
          
         self.input["model"] = fxa.model
         self.input["X"] = fxa.X
@@ -162,30 +162,30 @@ class FixOutRunner:
             self.input["unfair_model"].append(runfair_test)
 
 
-        self.__assess_fairness()
+        self._assess_fairness()
 
 
-    def __assess_fairness(self):
+    def _assess_fairness(self):
 
         self.output["metrics_list"] = [FairMetricEnum.DP, FairMetricEnum.EO, FairMetricEnum.PE, FairMetricEnum.EOD]
         self.output["nonStandardMetricsToBeCalculated"] = [FairMetricEnum.PP, FairMetricEnum.CEA]
 
-        self.output["result"] = self.__eval_fairness(self.output["metrics_list"],
+        self.output["result"] = self._eval_fairness(self.output["metrics_list"],
                                                    self.sensitivefeatureslist,
                                                    self.input["X"].tolist(),
                                                    self.input["y"].tolist(),
                                                    self.output["y_pred"],
                                                    "original")
         
-        self.output["nonstandardResults"] = self.__eval_fairness(self.output["nonStandardMetricsToBeCalculated"],
+        self.output["nonstandardResults"] = self._eval_fairness(self.output["nonStandardMetricsToBeCalculated"],
                                                                self.sensitivefeatureslist,
                                                                self.input["X"].tolist(),
                                                                self.input["y"].tolist(),
                                                                self.output["y_pred"],
                                                                "original")
-        self.__baselines()
+        self._baselines()
 
-    def __eval_fairness(self,metrics,sensFeatures,X,y,y_pred,txtIndicator):
+    def _eval_fairness(self,metrics,sensFeatures,X,y,y_pred,txtIndicator):
         
         results = []
         for sensitiveFeature in sensFeatures:
@@ -199,8 +199,8 @@ class FixOutRunner:
         return results
     
 
-    def __run(self, fxa, webserver):
-        self.__common(fxa)
+    def _run(self, fxa, webserver):
+        self._common(fxa)
         if webserver :
             pickle.dump((self.input, self.output),open(str("repport_output.fixout"),"wb"))
                 
@@ -224,10 +224,11 @@ class FixOutRunner:
             Otherwise, returns the computed evaluation results.
 
         """
-        self.__run(fxa, show)
+        self._run(fxa, show)
         if show :
             print("Initializing the web interface.\nResults available at http://localhost:5000")
-            interface.app.run()
+            app = interface.create_app()
+            app.run()
         return self.output
     
     def runJ(self, fxa, show=True):
@@ -247,7 +248,7 @@ class FixOutRunner:
         IFrame
             Displays a frame with all the results obtained using FixOut.
         """
-        self.__run(fxa, True)
+        self._run(fxa, True)
         self.wserver = threading.Thread(target=interface.app.run,args=())
         self.wserver.start()
         if show:
@@ -260,7 +261,7 @@ class FixOutRunner:
     #    self.wserver.join()
     #    return 
     
-    def __buildURL(self,service_name,dataset_reference):
+    def _buildURL(self,service_name,dataset_reference):
         address = httpaddress + "d/" + service_name + "/"
         
         if dataset_reference is not None: # checking testing data
@@ -288,7 +289,7 @@ class FixOutRunner:
         IFrame
             A frame with the requested results 
         """
-        address = self.__buildURL("histo",dataset_reference)
+        address = self._buildURL("histo",dataset_reference)
         if address is None:
             return 
         return IFrame(address, 1200,400)
@@ -302,7 +303,7 @@ class FixOutRunner:
         IFrame
             A frame with the requested results 
         """
-        address = self.__buildURL("visu",dataset_reference)
+        address = self._buildURL("visu",dataset_reference)
         if address is None:
             return 
         return IFrame(address, 1200,500)
@@ -317,7 +318,7 @@ class FixOutRunner:
         IFrame
             A frame with the requested results 
         """
-        address = self.__buildURL("corr",dataset_reference)
+        address = self._buildURL("corr",dataset_reference)
         if address is None:
             return 
         return IFrame(address, 1200,400)
@@ -332,13 +333,13 @@ class FixOutRunner:
         IFrame
             A frame with the requested results 
         """
-        address = self.__buildURL("rev",dataset_reference)
+        address = self._buildURL("rev",dataset_reference)
         if address is None:
             return 
         return IFrame(address, 1200,400)
     
     def discriminatory(self, dataset_reference=None):
-        address = self.__buildURL("corr",dataset_reference)
+        address = self._buildURL("corr",dataset_reference)
         if address is None:
             return 
         return IFrame(address, 1200,800)
@@ -352,7 +353,7 @@ class FixOutRunner:
         IFrame
             A frame with the requested results 
         """
-        address = self.__buildURL("metrics",dataset_reference)
+        address = self._buildURL("metrics",dataset_reference)
         return IFrame("http://localhost:5000/d/metrics/1", 1200,800)
 
 
@@ -385,7 +386,7 @@ class FixOutRunner:
 
         return result        
 
-    def __baselines(self):
+    def _baselines(self):
 
         predictions_list=[]
 
