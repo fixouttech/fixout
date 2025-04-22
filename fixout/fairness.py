@@ -1,3 +1,7 @@
+"""This module provides a suite of fairness metrics for evaluating machine learning models. 
+It includes measures like Conditional Accuracy Equality, Predictive Parity, Equal Opportunity, and more. 
+Each metric is implemented using a generic evaluation wrapper and is based on protected attributes or sensitive features to measure fairness across demographic groups."""
+
 from fixout.interface.ttypes import FairMetric, FairMetricEnum
 
 import numpy as np
@@ -11,10 +15,16 @@ def conditional_accuracy_equality(sFeature, X_test, y_test, model=None, y_pred=N
 
     Parameters
     ----------
-    cm0 : array-like
-        Confusion matrix for the unprivileged group.
-    cm1 : array-like
-        Confusion matrix for the privileged group.
+    sFeature : SensitiveFeature
+        Sensitive feature that will be taken into account to calculate fairness metrics.
+    X_test : array-like
+        Feature set for testing the model.
+    y_test : array-like
+        True labels for the test data.
+    model : sklearn-like estimator, optional
+        Trained model to generate predictions. If `y_pred` is not provided, this model will be used.
+    y_pred : array-like, optional
+        Predicted labels for `X_test`. If provided, `model` is ignored.
 
     Returns
     -------
@@ -22,7 +32,7 @@ def conditional_accuracy_equality(sFeature, X_test, y_test, model=None, y_pred=N
         The calculated conditional accuracy equality metric.
 
     """
-    return __genericFairnessMetric(_conditional_accuracy_equality, X_test, y_test, model, y_pred)
+    return __genericFairnessMetric(_conditional_accuracy_equality, sFeature, X_test, y_test, model, y_pred)
 
 def predictive_parity(sFeature, X_test, y_test, model=None, y_pred=None):
     """
@@ -30,17 +40,23 @@ def predictive_parity(sFeature, X_test, y_test, model=None, y_pred=None):
 
     Parameters
     ----------
-    cm0 : array-like
-        Confusion matrix for the unprivileged group.
-    cm1 : array-like
-        Confusion matrix for the privileged group.
+    sFeature : SensitiveFeature
+        Sensitive feature that will be taken into account to calculate fairness metrics.
+    X_test : array-like
+        Feature set for testing the model.
+    y_test : array-like
+        True labels for the test data.
+    model : sklearn-like estimator, optional
+        Trained model to generate predictions. If `y_pred` is not provided, this model will be used.
+    y_pred : array-like, optional
+        Predicted labels for `X_test`. If provided, `model` is ignored.
 
     Returns
     -------
     FairMetric
         The calculated predictive parity metric.
     """
-    return __genericFairnessMetric(_predictive_parity, X_test, y_test, model, y_pred)
+    return __genericFairnessMetric(_predictive_parity, sFeature, X_test, y_test, model, y_pred)
 
 def predictive_equality(sFeature, X_test, y_test, model=None, y_pred=None):
     """
@@ -48,17 +64,23 @@ def predictive_equality(sFeature, X_test, y_test, model=None, y_pred=None):
 
     Parameters
     ----------
-    cm0 : array-like
-        Confusion matrix for the unprivileged group.
-    cm1 : array-like
-        Confusion matrix for the privileged group.
+    sFeature : SensitiveFeature
+        Sensitive feature that will be taken into account to calculate fairness metrics.
+    X_test : array-like
+        Feature set for testing the model.
+    y_test : array-like
+        True labels for the test data.
+    model : sklearn-like estimator, optional
+        Trained model to generate predictions. If `y_pred` is not provided, this model will be used.
+    y_pred : array-like, optional
+        Predicted labels for `X_test`. If provided, `model` is ignored.
 
     Returns
     -------
     metric : FairMetric
         The calculated predictive equality metric.
     """
-    return __genericFairnessMetric(_predictive_equality, X_test, y_test, model, y_pred)
+    return __genericFairnessMetric(_predictive_equality, sFeature, X_test, y_test, model, y_pred)
 
 def equal_opportunity(sFeature, X_test, y_test, model=None, y_pred=None):
     """
@@ -66,10 +88,16 @@ def equal_opportunity(sFeature, X_test, y_test, model=None, y_pred=None):
     
     Parameters
     ----------
-    cm0 : array-like
-        Confusion matrix for the unprivileged group.
-    cm1 : array-like
-        Confusion matrix for the privileged group.
+    sFeature : SensitiveFeature
+        Sensitive feature that will be taken into account to calculate fairness metrics.
+    X_test : array-like
+        Feature set for testing the model.
+    y_test : array-like
+        True labels for the test data.
+    model : sklearn-like estimator, optional
+        Trained model to generate predictions. If `y_pred` is not provided, this model will be used.
+    y_pred : array-like, optional
+        Predicted labels for `X_test`. If provided, `model` is ignored.
 
     Returns
     -------
@@ -77,7 +105,7 @@ def equal_opportunity(sFeature, X_test, y_test, model=None, y_pred=None):
         The calculated equal opportunity metric.
 
     """
-    return __genericFairnessMetric(_equal_opportunity, X_test, y_test, model, y_pred)
+    return __genericFairnessMetric(_equal_opportunity, sFeature, X_test, y_test, model, y_pred)
 
 def demographic_parity(sFeature, X_test, y_test, model=None, y_pred=None):
     """
@@ -85,10 +113,16 @@ def demographic_parity(sFeature, X_test, y_test, model=None, y_pred=None):
     
     Parameters
     ----------
-    cm0 : array-like
-        Confusion matrix for the unprivileged group.
-    cm1 : array-like
-        Confusion matrix for the privileged group.
+    sFeature : SensitiveFeature
+        Sensitive feature that will be taken into account to calculate fairness metrics.
+    X_test : array-like
+        Feature set for testing the model.
+    y_test : array-like
+        True labels for the test data.
+    model : sklearn-like estimator, optional
+        Trained model to generate predictions. If `y_pred` is not provided, this model will be used.
+    y_pred : array-like, optional
+        Predicted labels for `X_test`. If provided, `model` is ignored.
 
     Returns
     -------
@@ -96,7 +130,7 @@ def demographic_parity(sFeature, X_test, y_test, model=None, y_pred=None):
         The calculated demographic parity metric.
 
     """
-    return __genericFairnessMetric(_demographic_parity, X_test, y_test, model, y_pred)
+    return __genericFairnessMetric(_demographic_parity, sFeature, X_test, y_test, model, y_pred)
 
 def equalized_odds(sFeature, X_test, y_test, model=None, y_pred=None):
     """
@@ -104,10 +138,16 @@ def equalized_odds(sFeature, X_test, y_test, model=None, y_pred=None):
     
     Parameters
     ----------
-    cm0 : array-like
-        Confusion matrix for the unprivileged group.
-    cm1 : array-like
-        Confusion matrix for the privileged group.
+    sFeature : SensitiveFeature
+        Sensitive feature that will be taken into account to calculate fairness metrics.
+    X_test : array-like
+        Feature set for testing the model.
+    y_test : array-like
+        True labels for the test data.
+    model : sklearn-like estimator, optional
+        Trained model to generate predictions. If `y_pred` is not provided, this model will be used.
+    y_pred : array-like, optional
+        Predicted labels for `X_test`. If provided, `model` is ignored.
 
     Returns
     -------
@@ -115,7 +155,7 @@ def equalized_odds(sFeature, X_test, y_test, model=None, y_pred=None):
         The calculated equalized odds metric.
     
     """
-    return __genericFairnessMetric(_equalized_odds, X_test, y_test, model, y_pred)
+    return __genericFairnessMetric(_equalized_odds, sFeature, X_test, y_test, model, y_pred)
 
 def __genericFairnessMetric(fairMetricFunc, sFeature, X_test, y_test, model=None, y_pred=None):
 
@@ -229,7 +269,7 @@ def computeFairnessMetrics(metrics, sFeature, X_test, y_test, y_pred):
         List of fairness metric types to be calculated.
 
     sFeature : SensitiveFeature 
-        Sensitive feature that will be take into account to calculate fairness metrics.
+        Sensitive feature that will be taken into account to calculate fairness metrics.
 
     X_test : array-like
         Feature matrix of the test set.
