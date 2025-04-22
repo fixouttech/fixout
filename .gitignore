@@ -4,5 +4,6 @@
 /fixout.egg-info
 __pycache__/
 **/__pycache__/
+demo_runner.py
 setup.py
 repport_output.fixout

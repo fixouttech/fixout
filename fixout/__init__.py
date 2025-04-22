@@ -5,12 +5,12 @@ from .demos import demo_data
 
 
 from .fairness import (
-    equal_opportunity,
-    demographic_parity,
-    conditional_accuracy_equality,
-    predictive_equality,
-    predictive_parity,
-    equalized_odds,
+    _equal_opportunity,
+    _demographic_parity,
+    _conditional_accuracy_equality,
+    _predictive_equality,
+    _predictive_parity,
+    _equalized_odds,
     )
 
 __all__ = ['artifact', 'fairness', 'helper', 'runner', 'utils', 'demos', 'interface']
