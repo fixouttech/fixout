@@ -2,7 +2,10 @@
 
 <b>Algorithmic inspection for trustworthy ML models</b>
 
+
+[![PyPi version](https://img.shields.io/pypi/v/fixout.svg)](https://pypi.org/project/fixout/)
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![Documentation Status](https://readthedocs.org/projects/fixout/badge/?version=latest)](https://fixout.readthedocs.io/en/latest/?badge=latest)
 
 <ul>
   <li><a href="https://groups.google.com/g/fixout" target="_blank" rel="noopener">Community</a></li>
