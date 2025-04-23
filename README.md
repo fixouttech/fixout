@@ -60,7 +60,7 @@ fxo.fairness()
 
 ## In your quality management code
  
-If you prefer to integrate FixOut in your code to check, then run the inspection by calling `run`
+If you prefer to integrate FixOut in your code, then run the inspection by calling `run`
 ```python
 fxo.run(fxa, show=True)
 ```
