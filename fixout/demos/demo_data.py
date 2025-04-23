@@ -35,8 +35,9 @@ def importBankData():
 
 def importCompasData():
     
-    #csv_path = files('fixout').joinpath('demos/data/compas.data')
-    df = pd.read_csv('fixout/demos/data/compas.data',sep=",", header=0)
+    #df = pd.read_csv('fixout/demos/data/compas.data',sep=",", header=0)
+    csv_path = files('fixout').joinpath('demos/data/compas.data')
+    df = pd.read_csv(csv_path,sep=",", header=0)
     y = df['two_year_recid'].to_numpy()
     _df = df.drop(['two_year_recid','id','name','c_case_number','type_of_assessment','v_type_of_assessment','violent_recid'],axis=1)#,'r_charge_desc','vr_charge_degree','decile_score.1','end','event'],axis=1)
     dataset = _df.to_numpy()

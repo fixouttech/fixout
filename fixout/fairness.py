@@ -1,6 +1,6 @@
-"""This module provides a suite of fairness metrics for evaluating machine learning models. 
+"""This module provides a suite of fairness metrics for evaluating machine learning models, more precisely, group fairness notions. 
 It includes measures like Conditional Accuracy Equality, Predictive Parity, Equal Opportunity, and more. 
-Each metric is implemented using a generic evaluation wrapper and is based on protected attributes or sensitive features to measure fairness across demographic groups."""
+Each metric takes into accound one protected attribute or sensitive feature to measure fairness across demographic groups."""
 
 from fixout.interface.ttypes import FairMetric, FairMetricEnum
 

@@ -5,14 +5,14 @@ import copy
 
 from sklearn.preprocessing import LabelEncoder
 
-from fixout import fairness, interface
+from fixout import fairness
 from fixout.helper import ReverseFairness, UnfairModel, clazzes
 from fixout.interface.ttypes import SensitiveFeature, FairMetricEnum
 
 import warnings
 warnings.filterwarnings('ignore')
 
-import fixout.web.webapp as interface
+import fixout.web.webapp as webinterface
 
 from IPython.display import IFrame
 import threading
@@ -227,7 +227,7 @@ class FixOutRunner:
         self._run(fxa, show)
         if show :
             print("Initializing the web interface.\nResults available at http://localhost:5000")
-            app = interface.create_app()
+            app = webinterface.create_app()
             app.run()
         return self.output
     
@@ -249,7 +249,8 @@ class FixOutRunner:
             Displays a frame with all the results obtained using FixOut.
         """
         self._run(fxa, True)
-        self.wserver = threading.Thread(target=interface.app.run,args=())
+        app = webinterface.create_app()
+        self.wserver = threading.Thread(target=app.run,args=())
         self.wserver.start()
         if show:
             return IFrame(httpaddress, 1200,800)
