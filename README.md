@@ -1,14 +1,26 @@
-<img alt="fixout_logo" src="https://asilvaguilherme4.files.wordpress.com/2023/08/fixout-1.png?w=128">
+<a href="http://fixout.fr"><img alt="fixout_logo" src="https://asilvaguilherme4.files.wordpress.com/2023/08/fixout-1.png?w=128"></a>
 
 <b>Algorithmic inspection for trustworthy ML models</b>
 
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
 <ul>
-  <li><a href="https://fixout.fr" target="_blank" rel="noopener">Website</a></li>
+  <li><a href="https://groups.google.com/g/fixout" target="_blank" rel="noopener">Community</a></li>
   <li><a href="https://fixouttech.github.io/fixout_api_docs" target="_blank" rel="noopener">Documentation</a></li>
   <li><a href="https://fixout.fr/blog/" target="_blank" rel="noopener">Blog</a></li>
 </ul>
+
+
+# Install
+
+Install the latest version of FixOut from PyPI using 
+
+```shell
+pip install fixout
+```
+
+You can check the details of FixOut’s latest version on [PyPI](https://pypi.org/project/fixout/).
+
 
 # Getting started
 
@@ -22,7 +34,7 @@ from fixout.runner import FixOutRunner
 fxo = FixOutRunner("Credit Risk Assessment (German Credit)") 
 
 # Indicate the sensitive features
-sensitive_features = ["foreignworker","telephone","statussex"] 
+sensitive_features = ["foreignworker","statussex"] 
 
 # Create a FixOut Artifact with your model and data
 fxa = FixOutArtifact(model=model,
@@ -33,6 +45,10 @@ fxa = FixOutArtifact(model=model,
                       dictionary=dic)
 ```
 
+## 
+
+## 
+ 
 Then run the inspection
 ```python
 fxo.run(fxa, show=True)
