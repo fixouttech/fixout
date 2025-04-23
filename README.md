@@ -9,7 +9,7 @@
 
 <ul>
   <li><a href="https://groups.google.com/g/fixout" target="_blank" rel="noopener">Community</a></li>
-  <li><a href="https://fixouttech.github.io/fixout_api_docs" target="_blank" rel="noopener">Documentation</a></li>
+  <li><a href="https://fixout.readthedocs.io/" target="_blank" rel="noopener">Documentation</a></li>
   <li><a href="https://fixout.fr/blog/" target="_blank" rel="noopener">Blog</a></li>
 </ul>
 
@@ -63,7 +63,7 @@ fxo.fairness()
 
 ## In your quality management code
  
-If you prefer to integrate FixOut in your code, then run the inspection by calling `run`
+If you prefer to integrate FixOut into your code, then run the inspection by calling `run`
 ```python
 fxo.run(fxa, show=True)
 ```
