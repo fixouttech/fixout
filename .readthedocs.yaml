@@ -20,5 +20,5 @@ sphinx:
 python:
     install:
     - requirements: docs/requirements.txt
-    path: .
+    path: ../fixout
         
