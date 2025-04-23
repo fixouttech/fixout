@@ -56,7 +56,7 @@ You can now check the calculated fairness metrics by using the method `fairness`
 fxo.fairness()
 ```
 
-![Fairness metrics](/img/fair_metrics.png)
+![Fairness metrics](/img/fair_metrics.PNG)
 
 ## In your quality management code
  
