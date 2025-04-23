@@ -3,3 +3,4 @@ sphinx_inline_tabs==2023.4.21
 numpy==1.26.4
 scikit-learn==1.5.2
 thrift==0.20.0
+Flask==3.0.3
