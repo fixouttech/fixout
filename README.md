@@ -19,8 +19,6 @@ Install the latest version of FixOut from PyPI using
 pip install fixout
 ```
 
-You can check the details of FixOut’s latest version on [PyPI](https://pypi.org/project/fixout/).
-
 
 # Getting started
 
@@ -45,17 +43,30 @@ fxa = FixOutArtifact(model=model,
                       dictionary=dic)
 ```
 
-## 
+## Using a Jupyter Notebook
 
-## 
+Then run the inspection with the method `runJ`
+```python
+fxo.runJ(fxa, show=False)
+```
+
+You can now check the calculated fairness metrics by using the method `fairness`.
+
+```python
+fxo.fairness()
+```
+
+![Fairness metrics](/img/fair_metrics.png)
+
+## In your quality management code
  
-Then run the inspection
+If you prefer to integrate FixOut in your code to check, then run the inspection by calling `run`
 ```python
 fxo.run(fxa, show=True)
 ```
 
-Finally, you can access the generated dashboard at <a href="http://localhost:5000" target="_blank" rel="noopener">http://localhost:5000</a> ;)
+In this case, you can access the generated dashboard at <a href="http://localhost:5000" target="_blank" rel="noopener">http://localhost:5000</a> ;)
 
 You should be able to see an interface similar to the following 
 
-![FixOut interface](/img/interface_data.PNG)
+![FixOut interface](/img/interface_data_2.PNG)
