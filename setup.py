@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
 
     name='fixout',
-    version='0.1.34',
+    version='0.1.35',
     description='Algorithmic inspection for trustworthy ML models',
     packages=find_packages(),
     package_data={'': ['web/templates/*.html',
