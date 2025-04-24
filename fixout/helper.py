@@ -51,11 +51,6 @@ class ReverseFairness():
         -------
         dict
             A dictionary mapping each sensitive feature name to a classifier and its list of calculated performance metrics.
-        
-        Notes
-        -----
-        - Assumes `clazzes` is defined externally as a list of (classifier, classifier_name) tuples.
-        - Uses `build_reverse_model` to train and evaluate classifiers.
         """
     
         results = {}
@@ -105,7 +100,6 @@ class ReverseFairness():
         Notes
         -----
         - The classifier is trained with `y` as input and `X` as output (reverse prediction).
-        - Calls `eval_perf` to compute performance metrics.
         """
         clf = clazz()
         clf.fit(y, X)

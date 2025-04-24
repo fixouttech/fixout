@@ -16,7 +16,7 @@ sys.path.insert(0, os.path.abspath("../"))
 project = 'FixOut'
 copyright = '2025, FixOut'
 author = 'FixOut'
-release = '0.1.32'
+release = '0.1.35'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
