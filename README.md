@@ -4,6 +4,8 @@
 
 
 [![PyPi version](https://img.shields.io/pypi/v/fixout.svg)](https://pypi.org/project/fixout/)
+[![Python Version](https://img.shields.io/pypi/pyversions/fixout)](https://img.shields.io/pypi/pyversions/fixout)
+[![PyPI Downloads](https://static.pepy.tech/badge/fixout)](https://pepy.tech/projects/fixout)
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Documentation Status](https://readthedocs.org/projects/fixout/badge/?version=latest)](https://fixout.readthedocs.io/en/latest/?badge=latest)
 
