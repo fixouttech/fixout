@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+title: fixout
+type: software
+authors:
+  - name: "The FixOut developers"
+message: "If you use FixOut in a scientific publication, we would appreciate citations to the following paper:"
+preferred-citation:
+  type: article
+  title: "FixOut: an ensemble approach to fairer models"
+  authors:
+  - family-names: "Alves"
+    given-names: "Guilherme"
+  - family-names: "Bhargava"
+    given-names: "Vaishnavi"
+  - family-names: "Bernier"
+    given-names: "Fabien"
+  - family-names: "Couceiro"
+    given-names: "Miguel"
+  - family-names: "Napoli"
+    given-names: "Amedeo"
+
+  year: 2020
+  url: "https://hal.science/hal-03033181/"
