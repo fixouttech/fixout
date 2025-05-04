@@ -9,6 +9,27 @@ from sklearn.preprocessing import OrdinalEncoder, LabelEncoder
 
 from importlib.resources import files
 
+def importLSACData():
+    csv_path = files('fixout').joinpath('demos/data/lsac.data')
+    df = pd.read_csv(csv_path,sep=";", header=0)
+    y = df['pass_bar'].to_numpy()
+    encY = LabelEncoder()
+    y = encY.fit_transform(y)
+    _df = df.drop(['pass_bar'],axis=1)
+    dataset = _df.to_numpy()
+
+    enc = OrdinalEncoder(encoded_missing_value=-1)
+    X_new = enc.fit_transform(dataset)
+
+    X_train, X_test, y_train, y_test = train_test_split(X_new, y, train_size=0.5, random_state=42)
+
+    model = RandomForestClassifier(n_estimators=10)
+    model.fit(X_train, y_train)
+
+    sen_features_indexes = [_df.columns.get_loc(x) for x in ["sex","race","family_income"]]
+
+    return model, X_train, X_test, y_train, y_test, _df.columns.values.tolist(), generate_dictionary(enc,sen_features_indexes)
+
 def importBankData():
     
     #csv_path = files('fixout').joinpath('demos/data/bank.data')

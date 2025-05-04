@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
 
     name='fixout',
-    version='0.1.35',
+    version='0.1.36a',
     description='Algorithmic inspection for trustworthy ML models',
     packages=find_packages(),
     package_data={'': ['web/templates/*.html',
@@ -20,6 +20,10 @@ setup(
     author="FixOut",
     license="BSD",
     classifiers=[
+        'Development Status :: 2 - Pre-Alpha',
+        'Intended Audience :: Developers',
+        'Intended Audience :: Science/Research',
+        'Topic :: Scientific/Engineering :: Artificial Intelligence',
         "License :: OSI Approved :: BSD License",
         "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: 3.13",
